@@ -1,9 +1,14 @@
-import pandas as pd
-from sklearn.preprocessing import LabelEncoder
 import os
 
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder
 
-def read_ratings(ratings_csv, data_dir="data/raw") -> pd.DataFrame:
+
+def read_ratings(
+    ratings_csv,
+    ti_max,
+    data_dir="data/raw",
+) -> pd.DataFrame:
     """
     Reads a ratings.csv from the data/raw folder.
 
@@ -25,7 +30,11 @@ def read_ratings(ratings_csv, data_dir="data/raw") -> pd.DataFrame:
     return data
 
 
-def read_movies(movies_csv, data_dir="data/raw") -> pd.DataFrame:
+def read_movies(
+    movies_csv,
+    ti_max,
+    data_dir="data/raw",
+) -> pd.DataFrame:
     """
     Reads a movies.csv from the data/raw folder.
 
@@ -68,11 +77,12 @@ def create_user_matrix(ratings, movies):
 
 
 if __name__ == "__main__":
+    ti_max = 1
 
     # read user_ratings and movies tables
-    user_ratings = read_ratings("ratings.csv")
-    movies = read_movies("movies.csv")
+    user_ratings = read_ratings("ratings.csv", ti_max=ti_max)
+    movies = read_movies("movies.csv", ti_max=ti_max)
     user_matrix = create_user_matrix(user_ratings, movies)
     movies = movies.drop("title", axis=1)
-    movies.to_csv("data/processed/movie_matrix.csv", index=False)
-    user_matrix.to_csv("data/processed/user_matrix.csv")
+    movies.to_csv("data/processed/movie_matrix_TI1.csv", index=False)
+    user_matrix.to_csv("data/processed/user_matrix_TI1.csv")
