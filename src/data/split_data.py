@@ -3,11 +3,42 @@ import os
 import click
 import pandas as pd
 
-from src.data.check_structure import check_existing_file, check_existing_folder
+from src.data.check_structure import check_existing_folder
 
 
-def split_ratings(input_filepath, output_filepath):
-    """Splits ratings into 4 time intervals based on the timestamp column.
+def get_start_end_year(input_filepath):
+    ratings = pd.read_csv(f"{input_filepath}/ratings.csv")
+
+    # Format Unix-timestamp to datetime
+    ratings["timestamp"] = pd.to_datetime(ratings["timestamp"], unit="s")
+    ratings["year"] = ratings["timestamp"].dt.year
+
+    start_year = ratings["year"].min()
+    end_year = ratings["year"].max()
+
+    return start_year, end_year
+
+
+def split_dataset(df, start_year, end_year, step, output_filepath, file_indicator):
+    while start_year <= end_year:
+        next_start_year = start_year + step
+
+        tmp_df = df[(df["year"] >= start_year) & (df["year"] <= next_start_year)]
+
+        if check_existing_folder(f"{output_filepath}/{file_indicator}"):
+            os.makedirs(f"{output_filepath}/{file_indicator}")
+
+        tmp_df.to_csv(
+            f"{output_filepath}/{file_indicator}/{file_indicator}_{start_year}_{next_start_year}.csv",
+            index=False,
+        )
+        print(f"Saving {file_indicator} data from {start_year} to {next_start_year}")
+
+        start_year += step + 1
+
+
+def split_ratings(input_filepath, output_filepath, start_year, end_year, step):
+    """Splits ratings into time intervals based on the timestamp column.
 
     Args:
         input_filepath (_type_): path to raw data directory
@@ -15,32 +46,19 @@ def split_ratings(input_filepath, output_filepath):
     """
 
     ratings = pd.read_csv(f"{input_filepath}/ratings.csv")
+
     # Format Unix-timestamp to datetime
     ratings["timestamp"] = pd.to_datetime(ratings["timestamp"], unit="s")
+    ratings["year"] = ratings["timestamp"].dt.year
 
-    # Split data into 4 parts
-    ratings["time_interval"] = pd.cut(
-        ratings["timestamp"], bins=4, labels=["TI1", "TI2", "TI3", "TI4"]
+    splitted = split_dataset(
+        ratings, start_year, end_year, step, output_filepath, "ratings"
     )
-
-    if check_existing_folder(output_filepath):
-        os.makedirs(output_filepath)
-
-    # Save splitted data into csv files
-    for i in range(1, 5):
-        if check_existing_file(f"{output_filepath}/ratings_TI{i}.csv"):
-            # df = ratings[ratings["time_interval"] == f"TI{i}"]
-            # print(
-            #     f"Time interval {i}: {df['timestamp'].min()} - {df['timestamp'].max()} ({len(df)} ratings)"
-            # )
-            ratings[ratings["time_interval"] == f"TI{i}"].to_csv(
-                f"{output_filepath}/ratings_TI{i}.csv", index=False
-            )
-    return
+    return splitted
 
 
-def split_movies(input_filepath, output_filepath):
-    """Splits movies into time intervals (all 5 years).
+def split_movies(input_filepath, output_filepath, start_year, end_year, step):
+    """Splits movies into time intervals.
 
     Args:
         input_filepath (_type_): path to raw data directory
@@ -52,25 +70,22 @@ def split_movies(input_filepath, output_filepath):
     movies["year"] = movies["title"].str.extract("\((\d{4})\)")
     movies["year"] = pd.to_numeric(movies["year"])
 
-    if check_existing_folder(output_filepath):
-        os.makedirs(output_filepath)
-
-    # Split movies into corresponding time intervals
-    for index, year in enumerate(range(1995, 2020, 5)):
-        print(year)
-        if check_existing_file(f"{output_filepath}/movies_TI{index + 1}.csv"):
-            df = movies[(movies["year"] >= year) & (movies["year"] <= year + 5)]
-            # print(f"TI{index + 1}: Movies from {year} to {year + 5}: {len(df)}")
-            df.to_csv(f"{output_filepath}/movies_TI{index + 1 }.csv", index=False)
-    return
+    splitted = split_dataset(
+        movies, start_year, end_year, step, output_filepath, "movies"
+    )
+    return splitted
 
 
 @click.command()
 @click.argument("input_filepath", type=click.Path(exists=True))
 @click.argument("output_filepath", type=click.Path())
 def main(input_filepath, output_filepath):
-    split_ratings(input_filepath, output_filepath)
-    split_movies(input_filepath, output_filepath)
+    start_year, end_year = get_start_end_year(input_filepath)
+
+    split_ratings(input_filepath, output_filepath, start_year, end_year, 3)
+    split_movies(input_filepath, output_filepath, start_year, end_year, 3)
+
+    print("DATA SPLITTING DONE.")
 
 
 if __name__ == "__main__":
