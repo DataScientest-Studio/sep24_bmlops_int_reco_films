@@ -1,3 +1,4 @@
+import logging
 import os
 
 import click
@@ -24,6 +25,7 @@ def split_dataset(df, start_year, end_year, step, output_filepath, file_indicato
         next_start_year = start_year + step
 
         tmp_df = df[(df["year"] >= start_year) & (df["year"] <= next_start_year)]
+        tmp_df = tmp_df.drop(columns=["year"])
 
         if check_existing_folder(f"{output_filepath}/{file_indicator}"):
             os.makedirs(f"{output_filepath}/{file_indicator}")
@@ -79,14 +81,21 @@ def split_movies(input_filepath, output_filepath, start_year, end_year, step):
 @click.command()
 @click.argument("input_filepath", type=click.Path(exists=True))
 @click.argument("output_filepath", type=click.Path())
-def main(input_filepath, output_filepath):
+@click.argument("step", type=click.INT)
+def main(input_filepath, output_filepath, step):
+    logger = logging.getLogger(__name__)
+    logger.info(f"split data into chunks of {step} years")
+
     start_year, end_year = get_start_end_year(input_filepath)
 
-    split_ratings(input_filepath, output_filepath, start_year, end_year, 3)
-    split_movies(input_filepath, output_filepath, start_year, end_year, 3)
+    split_ratings(input_filepath, output_filepath, start_year, end_year, step)
+    split_movies(input_filepath, output_filepath, start_year, end_year, step)
 
-    print("DATA SPLITTING DONE.")
+    logger.info(f"Data Splitting done. Data saved in {output_filepath}.")
 
 
 if __name__ == "__main__":
+    log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    logging.basicConfig(level=logging.INFO, format=log_fmt)
+
     main()
