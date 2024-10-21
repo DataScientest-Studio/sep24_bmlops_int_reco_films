@@ -1,6 +1,6 @@
-import pandas as pd
 import pickle
-import numpy as np
+
+import pandas as pd
 
 
 def make_predictions(users_id, model_filename, user_matrix_filename):
@@ -19,14 +19,9 @@ def make_predictions(users_id, model_filename, user_matrix_filename):
     filehandler.close()
 
     # Calculate nearest neighbors
-    _, indices = model.kneighbors(users)
+    distances, indices = model.kneighbors(users)
 
-    # Select 10 random numbers from each row
-    selection = np.array(
-        [np.random.choice(row, size=10, replace=False) for row in indices]
-    )
-
-    return selection
+    return distances, indices
 
 
 if __name__ == "__main__":

@@ -1,10 +1,12 @@
-import pandas as pd
-from sklearn.neighbors import NearestNeighbors
 import pickle
 
+import pandas as pd
+from sklearn.neighbors import NearestNeighbors
 
+
+# Content based filtering: Recommend movies based on the similarity of their genres
 def train_model(movie_matrix):
-    nbrs = NearestNeighbors(n_neighbors=20, algorithm="ball_tree").fit(
+    nbrs = NearestNeighbors(n_neighbors=5, algorithm="ball_tree").fit(
         movie_matrix.drop("movieId", axis=1)
     )
     return nbrs
