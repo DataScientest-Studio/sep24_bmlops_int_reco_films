@@ -2,50 +2,16 @@ import numpy as np
 import pandas as pd
 from predict_model import make_predictions
 
-# Define path variables
-user_matrix_filename = "data/processed/user_matrix.csv"
-movie_matrix_filename = "data/processed/movie_matrix.csv"
-movies_raw = "data/raw/movies.csv"
 
-# Define tracking_uri
-# mlflow.set_tracking_uri("http://localhost:8080")
-
-# # Define experiment name, run name and artifact_path name
-# movie_experiment = mlflow.set_experiment("reco_movie")
-# run_name = "first_run"
-
-# Load the dataset
-users = pd.read_csv(user_matrix_filename)
-movies = pd.read_csv(movie_matrix_filename)
+# Return a sample of users to test the model
+def get_test_sample(users, sample_size=0.2, random_state=42):
+    sample = users.sample(frac=sample_size, random_state=random_state)
+    sample_ids = sample["userId"].values
+    return sample_ids
 
 
-movies_meta = pd.read_csv(movies_raw)
-
-# Select some random users for testing
-# sample = users.sample(frac=0.2, random_state=42)
-users_id = [1, 2, 3, 4, 5]
-
-# For the given users find the nearest movies
-distances, indices = make_predictions(
-    users_id, "models/model.pkl", "data/processed/user_matrix.csv"
-)
-
-
-def get_movie_title(movie_id):
-    return movies_meta[movies_meta["movieId"] == movie_id]["title"].values[0]
-
-
-# Display the results
-# for i, user in enumerate(users_id):
-#     print(f"Recommendations for user {user}:")
-#     for j, movie in enumerate(indices[i]):
-#         print(
-#             f"{j + 1}: [{movies.iloc[movie].movieId}] {get_movie_title(movies.iloc[movie].movieId)})"
-#         )
-#     print("##################")
-
-
-def evaluate(indices):
+# Returns a list of pseudo-ratings for the recommended movies
+def generate_pseudo_ratings(indices):
     pseudo_ratings = []
     for i, user in enumerate(indices):
         user_pseudo_ratings = []
@@ -61,9 +27,32 @@ def evaluate(indices):
     return pseudo_ratings
 
 
-result = evaluate(indices)
-print(result)
+def get_avg_pseudo_rating(pseudo_ratings):
+    avg_pseudo_rating = np.mean(pseudo_ratings)
+    print(f"Average pseudo-rating: {avg_pseudo_rating:.2f} n={len(pseudo_ratings)}")
+    return avg_pseudo_rating
 
-# Load the model
-# loaded_model = mlflow.sklearn.load_model("models/model.pkl")
-# predictions = loaded_model.predict(X_test)
+
+def evaluate(indices):
+    pseudo_ratings = generate_pseudo_ratings(indices)
+    return get_avg_pseudo_rating(pseudo_ratings)
+
+
+if __name__ == "__main__":
+    # Set path variables
+    user_matrix_filename = "data/processed/user_matrix.csv"
+    model_filename = "models/model.pkl"
+
+    # Load datasets
+    users = pd.read_csv(user_matrix_filename)
+
+    # Get test sample
+    user_sample = get_test_sample(users)
+
+    # Get predictions
+    distances, indices = make_predictions(
+        user_sample, model_filename, user_matrix_filename
+    )
+
+    # Evaluate
+    evaluation = evaluate(indices)
