@@ -33,4 +33,6 @@ class DataUpdate:
                 )
 
         df = pd.concat(dfs, ignore_index=True)
-        df.to_csv(f"{self.config.target_dir}/{filename}", index=False)
+        df.to_csv(
+            f"{self.config.target_dir}/{filename.split('.')[0]}/{filename}", index=False
+        )
