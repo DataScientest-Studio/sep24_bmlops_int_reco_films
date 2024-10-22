@@ -3,7 +3,7 @@ MOVIE_COLUMNS:
   title: string
   genres: string
 
-RATINGS_COLUMNS:
+RATING_COLUMNS:
   userId: int64
   movieId: int64
   rating: float64

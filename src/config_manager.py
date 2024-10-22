@@ -66,15 +66,18 @@ class ConfigurationManager:
 
     def get_data_validation_config(self) -> DataValidationConfig:
         config = self.config.data_validation
-        schema = self.schema.COLUMNS
+        movie_schema = self.schema.MOVIE_COLUMNS
+        rating_schema = self.schema.RATING_COLUMNS
 
         create_directories([config.root_dir])
 
         data_validation_config = DataValidationConfig(
             root_dir=config.root_dir,
+            movie_filename=config.movie_filename,
+            rating_filename=config.rating_filename,
+            movie_schema=movie_schema,
+            rating_schema=rating_schema,
             STATUS_FILE=config.STATUS_FILE,
-            unzip_data_dir=config.unzip_dir,
-            all_schema=schema,
         )
 
         return data_validation_config

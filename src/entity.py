@@ -29,10 +29,11 @@ class DataUpdateConfig:
 @dataclass(frozen=True)
 class DataValidationConfig:
     root_dir: Path
-    movie_path: Path
-    rating_path: Path
+    movie_filename: str
+    rating_filename: str
     STATUS_FILE: str
-    all_schema: dict
+    movie_schema: dict
+    rating_schema: dict
 
 
 @dataclass(frozen=True)

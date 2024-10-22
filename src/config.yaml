@@ -22,9 +22,9 @@ data_update:
   year: 1998
 
 data_validation:
-  root_dir: data
-  movie_path: data/raw/movies.csv
-  rating_path: data/raw/ratings.csv
+  root_dir: data/interim
+  movie_filename: movies/movies.csv
+  rating_filename: ratings/ratings.csv
   STATUS_FILE: data/status.txt
 
 data_transformation: 
