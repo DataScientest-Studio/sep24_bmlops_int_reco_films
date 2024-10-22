@@ -1,7 +1,10 @@
 [core]
     analytics = false
-    remote = remote_storage
-['remote "remote_storage"']
+    remote = origin
+['remote "remote_gdrive"']
     url = gdrive://1r0V4Jz9mEIFporQdIS4GYjIj8b8PQAE7
     gdrive_use_service_account = true
     gdrive_acknowledge_abuse = true
+['remote "origin"']
+    url = s3://dvc
+    endpointurl = https://dagshub.com/castolpe/sep24_bmlops_int_reco_films.s3
