@@ -1,0 +1,43 @@
+data_ingestion:
+  root_dir:  data/raw
+  bucket_folder_url: https://mlops-project-db.s3.eu-west-1.amazonaws.com/movie_recommandation/
+  filenames:
+    - movies.csv
+    - ratings.csv
+    - README.txt
+
+data_split:
+  root_dir: data/raw
+  target_dir: data/interim/
+  movie_filename: movies.csv
+  rating_filename: ratings.csv
+  step: 3
+
+data_update:
+  root_dir: data/interim
+  target_dir: data/processed
+  filenames:
+    - movies.csv
+    - ratings.csv
+  year: 1998
+
+data_validation:
+  root_dir: data
+  movie_path: data/raw/movies.csv
+  rating_path: data/raw/ratings.csv
+  STATUS_FILE: data/status.txt
+
+data_transformation: 
+  root_dir: data/interim
+  data_path: data/raw/winequality-red.csv
+
+model_trainer:
+  root_dir: models
+  movie_path: data/processed/movie_matrix.csv
+  user_path: data/processed/user_matrix.csv
+  model_name: model.pkl
+
+model_evaluation:
+  root_dir: metrics
+  model_path: models/model.pkl
+  metric_file_name: metrics/intra_list_similarity.json

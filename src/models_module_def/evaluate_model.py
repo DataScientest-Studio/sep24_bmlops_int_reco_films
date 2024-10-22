@@ -1,3 +1,6 @@
+import json
+import logging
+
 import numpy as np
 import pandas as pd
 from predict_model import make_predictions
@@ -39,6 +42,9 @@ def evaluate(indices):
 
 
 if __name__ == "__main__":
+    logger = logging.getLogger(__name__)
+    logger.info("evaluating model")
+
     # Set path variables
     user_matrix_filename = "data/processed/user_matrix.csv"
     model_filename = "models/model.pkl"
@@ -55,4 +61,10 @@ if __name__ == "__main__":
     )
 
     # Evaluate
-    evaluation = evaluate(indices)
+    output_path = "metrics/intra_list_similarity.json"
+
+    intra_list_similarity = evaluate(indices)
+    with open(output_path, "w") as f:
+        json.dump({"intra_list_similarity": intra_list_similarity}, f, indent=4)
+
+    logger.info(f"json file saved at: {output_path}")

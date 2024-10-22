@@ -1,0 +1,10 @@
+MOVIE_COLUMNS:
+  movieId: int64
+  title: string
+  genres: string
+
+RATINGS_COLUMNS:
+  userId: int64
+  movieId: int64
+  rating: float64
+  timestamp: int64

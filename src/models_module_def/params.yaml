@@ -1,0 +1,3 @@
+NearestNeighbors:
+  n_neighbors: 5
+  algorithm: "ball_tree"
