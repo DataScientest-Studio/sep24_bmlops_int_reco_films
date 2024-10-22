@@ -29,7 +29,11 @@ data_validation:
 
 data_transformation: 
   root_dir: data/interim
-  data_path: data/raw/winequality-red.csv
+  movie_filename: movies/movies.csv
+  rating_filename: ratings/ratings.csv
+  target_dir: data/processed
+  movie_output_filename: movie_matrix.csv
+  rating_output_filename: user_matrix.csv
 
 model_trainer:
   root_dir: models

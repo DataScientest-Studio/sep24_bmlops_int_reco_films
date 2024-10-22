@@ -85,11 +85,15 @@ class ConfigurationManager:
     def get_data_transformation_config(self) -> DataTransformationConfig:
         config = self.config.data_transformation
 
-        create_directories([config.root_dir])
+        create_directories([config.target_dir])
 
         data_transformation_config = DataTransformationConfig(
             root_dir=config.root_dir,
-            data_path=config.data_path,
+            target_dir=config.target_dir,
+            rating_filename=config.rating_filename,
+            movie_filename=config.movie_filename,
+            movie_output_filename=config.movie_output_filename,
+            rating_output_filename=config.rating_output_filename,
         )
 
         return data_transformation_config

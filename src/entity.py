@@ -29,8 +29,8 @@ class DataUpdateConfig:
 @dataclass(frozen=True)
 class DataValidationConfig:
     root_dir: Path
-    movie_filename: str
-    rating_filename: str
+    movie_filename: Path
+    rating_filename: Path
     STATUS_FILE: str
     movie_schema: dict
     rating_schema: dict
@@ -39,7 +39,11 @@ class DataValidationConfig:
 @dataclass(frozen=True)
 class DataTransformationConfig:
     root_dir: Path
-    data_path: Path
+    target_dir: Path
+    rating_filename: Path
+    movie_filename: Path
+    rating_output_filename: Path
+    movie_output_filename: Path
 
 
 @dataclass(frozen=True)
