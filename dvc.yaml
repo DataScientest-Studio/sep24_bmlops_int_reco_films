@@ -1,0 +1,58 @@
+stages:
+  data_ingestion:
+    cmd: python .\src\pipeline_steps\stage01_data_ingestion.py
+    deps:
+    - .\src\config.yaml
+    - .\src\pipeline_steps\stage01_data_ingestion.py
+    outs:
+    - .\data\raw\movies.csv
+    - .\data\raw\ratings.csv
+    - .\data\raw\README.txt
+  data_split:
+    cmd: python .\src\pipeline_steps\stage02_data_split.py
+    deps:
+    - .\src\config.yaml
+    - .\src\pipeline_steps\stage02_data_split.py
+    outs:
+    - .\data\interim\movies
+    - .\data\interim\ratings
+  data_update:
+    cmd: python .\src\pipeline_steps\stage03_data_update.py
+    deps:
+    - .\src\config.yaml
+    - .\src\pipeline_steps\stage03_data_update.py
+    outs:
+    - .\data\interim\movies.csv
+    - .\data\interim\ratings.csv
+  data_validation:
+    cmd: python .\src\pipeline_steps\stage04_data_validation.py
+    deps:
+    - .\src\config.yaml
+    - .\src\pipeline_steps\stage04_data_validation.py
+    outs:
+    - .\data\status.txt
+  data_transformation:
+    cmd: python .\src\pipeline_steps\stage05_data_transformation.py
+    deps:
+    - .\src\config.yaml
+    - .\src\pipeline_steps\stage05_data_transformation.py
+    outs:
+    - .\data\processed\movie_matrix.csv
+    - .\data\processed\user_matrix.csv
+  model_train:
+    cmd: python .\src\pipeline_steps\stage06_model_train.py
+    deps:
+    - .\src\config.yaml
+    - .\src\pipeline_steps\stage06_model_train.py
+    outs:
+    - .\models\model.pkl
+  model_evaluation:
+    cmd: python .\src\pipeline_steps\stage07_model_evaluate.py
+    deps:
+    - .\src\config.yaml
+    - .\src\pipeline_steps\stage07_model_evaluate.py
+    metrics:
+    - .\metrics\intra_list_similarity.json
+      cache:false
+
+
