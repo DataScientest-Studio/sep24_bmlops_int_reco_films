@@ -51,7 +51,7 @@ class ConfigurationManager:
         return data_split_config
 
     def get_data_update_config(self) -> DataUpdateConfig:
-        config = self.config.data_ingestion
+        config = self.config.data_update
 
         create_directories([config.target_dir])
 
@@ -59,6 +59,7 @@ class ConfigurationManager:
             root_dir=config.root_dir,
             target_dir=config.target_dir,
             filenames=config.filenames,
+            year=config.year,
         )
 
         return data_update_config
