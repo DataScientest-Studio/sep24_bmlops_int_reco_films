@@ -43,4 +43,5 @@ model_trainer:
 model_evaluation:
   root_dir: metrics
   model_path: models/model.pkl
+  user_filename: data/processed/user_matrix.csv
   metric_file_name: metrics/intra_list_similarity.json

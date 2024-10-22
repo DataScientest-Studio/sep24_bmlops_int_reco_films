@@ -59,7 +59,8 @@ class ModelTrainerConfig:
 class ModelEvaluationConfig:
     root_dir: Path
     model_path: Path
-    metric_file_name: Path
-    all_params: dict
+    user_filename: Path
     metric_file_name: Path
     mlflow_uri: str
+    repo_owner: str
+    repo_name: str

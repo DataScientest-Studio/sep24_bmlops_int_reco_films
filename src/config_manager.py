@@ -116,16 +116,19 @@ class ConfigurationManager:
 
     def get_model_evaluation_config(self) -> ModelEvaluationConfig:
         config = self.config.model_evaluation
-        params = self.params.ElasticNet
+        repo_owner = "castolpe"
+        repo_name = "sep24_bmlops_int_reco_films"
 
         create_directories([config.root_dir])
 
         model_evaluation_config = ModelEvaluationConfig(
             root_dir=config.root_dir,
             model_path=config.model_path,
+            user_filename=config.user_filename,
             metric_file_name=config.metric_file_name,
-            all_params=params,
-            mlflow_uri="git clone https://github.com/DataScientest-Studio/sep24_bmlops_int_reco_films.git",  # make sure to update this information
+            repo_owner=repo_owner,
+            repo_name=repo_name,
+            mlflow_uri=f"git clone https://github.com/{repo_owner}/{repo_name}.git",
         )
 
         return model_evaluation_config
