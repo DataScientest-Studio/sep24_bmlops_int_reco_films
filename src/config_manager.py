@@ -100,15 +100,16 @@ class ConfigurationManager:
 
     def get_model_trainer_config(self) -> ModelTrainerConfig:
         config = self.config.model_trainer
-        params = self.params.ElasticNet
+        params = self.params.NearestNeighbors
 
         create_directories([config.root_dir])
 
         model_trainer_config = ModelTrainerConfig(
             root_dir=config.root_dir,
             model_name=config.model_name,
-            n_neighbors=config.n_neighbors,
-            algorithm=config.algorithm,
+            movie_filename=config.movie_filename,
+            n_neighbors=params.n_neighbors,
+            algorithm=params.algorithm,
         )
 
         return model_trainer_config

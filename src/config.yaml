@@ -37,9 +37,8 @@ data_transformation:
 
 model_trainer:
   root_dir: models
-  movie_path: data/processed/movie_matrix.csv
-  user_path: data/processed/user_matrix.csv
   model_name: model.pkl
+  movie_filename: data/processed/movie_matrix.csv
 
 model_evaluation:
   root_dir: metrics

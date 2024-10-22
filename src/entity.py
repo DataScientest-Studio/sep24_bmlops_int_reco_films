@@ -50,6 +50,7 @@ class DataTransformationConfig:
 class ModelTrainerConfig:
     root_dir: Path
     model_name: str
+    movie_filename: Path
     n_neighbors: int
     algorithm: str
 
