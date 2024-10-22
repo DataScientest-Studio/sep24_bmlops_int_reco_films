@@ -23,14 +23,14 @@ data_update:
 
 data_validation:
   root_dir: data/interim
-  movie_filename: movies/movies.csv
-  rating_filename: ratings/ratings.csv
+  movie_filename: movies.csv
+  rating_filename: ratings.csv
   STATUS_FILE: data/status.txt
 
 data_transformation: 
   root_dir: data/interim
-  movie_filename: movies/movies.csv
-  rating_filename: ratings/ratings.csv
+  movie_filename: movies.csv
+  rating_filename: ratings.csv
   target_dir: data/processed
   movie_output_filename: movie_matrix.csv
   rating_output_filename: user_matrix.csv

@@ -2,7 +2,6 @@ import os
 
 import pandas as pd
 
-from src.data_module_def.check_structure import check_existing_folder
 from src.entity import DataSplitConfig
 
 
@@ -31,7 +30,7 @@ class DataSplit:
             tmp_df = df[(df["year"] >= start_year) & (df["year"] <= next_start_year)]
             tmp_df = tmp_df.drop(columns=["year"])
 
-            if check_existing_folder(f"{self.config.target_dir}/{dir}"):
+            if not os.path.exists(f"{self.config.target_dir}/{dir}"):
                 os.makedirs(f"{self.config.target_dir}/{dir}")
 
             tmp_df.to_csv(
