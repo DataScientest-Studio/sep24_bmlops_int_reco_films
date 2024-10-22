@@ -7,7 +7,7 @@ sys.path.append(parent_folder)
 
 from custom_logger import logger
 from src.config_manager import ConfigurationManager
-from src.models_module_def.model_trainer import ModelTrainer
+from src.models_module_def.model_train import ModelTrainer
 
 STAGE_NAME = "Model trainer stage"
 
