@@ -5,12 +5,12 @@ stages:
     - .\src\config.yaml
     - .\src\pipeline_steps\stage01_data_ingestion.py
     outs:
-    - .\data\raw\movies.csv
-    - .\data\raw\ratings.csv
-    - .\data\raw\README.txt
+    - .\data\raw
   data_split:
     cmd: python .\src\pipeline_steps\stage02_data_split.py
     deps:
+    - .\data\raw\movies.csv
+    - .\data\raw\ratings.csv
     - .\src\config.yaml
     - .\src\pipeline_steps\stage02_data_split.py
     outs:
@@ -21,6 +21,8 @@ stages:
     deps:
     - .\src\config.yaml
     - .\src\pipeline_steps\stage03_data_update.py
+    - .\data\interim\movies
+    - .\data\interim\ratings
     outs:
     - .\data\interim\movies.csv
     - .\data\interim\ratings.csv
@@ -29,6 +31,8 @@ stages:
     deps:
     - .\src\config.yaml
     - .\src\pipeline_steps\stage04_data_validation.py
+    - .\data\interim\movies.csv
+    - .\data\interim\ratings.csv
     outs:
     - .\data\status.txt
   data_transformation:
@@ -36,6 +40,7 @@ stages:
     deps:
     - .\src\config.yaml
     - .\src\pipeline_steps\stage05_data_transformation.py
+    - .\data\status.txt
     outs:
     - .\data\processed\movie_matrix.csv
     - .\data\processed\user_matrix.csv
@@ -44,6 +49,8 @@ stages:
     deps:
     - .\src\config.yaml
     - .\src\pipeline_steps\stage06_model_train.py
+    - .\data\processed\movie_matrix.csv
+    - .\data\processed\user_matrix.csv
     outs:
     - .\models\model.pkl
   model_evaluation:
@@ -51,6 +58,7 @@ stages:
     deps:
     - .\src\config.yaml
     - .\src\pipeline_steps\stage07_model_evaluate.py
+    - .\models\model.pkl
     metrics:
     - .\metrics\intra_list_similarity.json
       cache:false
