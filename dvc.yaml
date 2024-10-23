@@ -5,7 +5,8 @@ stages:
     - .\src\config.yaml
     - .\src\pipeline_steps\stage01_data_ingestion.py
     outs:
-    - .\data\raw
+    - .\data\raw\movies.csv
+    - .\data\raw\ratings.csv
   data_split:
     cmd: python .\src\pipeline_steps\stage02_data_split.py
     deps:
@@ -61,6 +62,5 @@ stages:
     - .\models\model.pkl
     metrics:
     - .\metrics\intra_list_similarity.json
-      cache:false
 
 

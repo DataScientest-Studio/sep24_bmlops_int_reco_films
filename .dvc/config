@@ -8,3 +8,4 @@
 ['remote "origin"']
     url = s3://dvc
     endpointurl = https://dagshub.com/castolpe/sep24_bmlops_int_reco_films.s3
+    read_timeout = 300
