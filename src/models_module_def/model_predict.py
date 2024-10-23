@@ -3,9 +3,9 @@ import pickle
 import pandas as pd
 
 
-def make_predictions(users_id, model_filename, user_matrix_filename):
+def make_prediction_by_user(users_id):
     # Read user_matrix
-    users = pd.read_csv(user_matrix_filename)
+    users = pd.read_csv("data/processed/user_matrix.csv")
 
     # Filter with the list of users_id
     users = users[users["userId"].isin(users_id)]
@@ -14,7 +14,7 @@ def make_predictions(users_id, model_filename, user_matrix_filename):
     users = users.drop("userId", axis=1)
 
     # Open model
-    filehandler = open(model_filename, "rb")
+    filehandler = open("models/model.pkl", "rb")
     model = pickle.load(filehandler)
     filehandler.close()
 
@@ -24,13 +24,27 @@ def make_predictions(users_id, model_filename, user_matrix_filename):
     return distances, indices
 
 
-if __name__ == "__main__":
-    # Take the 5 first users Id of the DB
-    users_id = [1, 2, 3, 4, 5]
+def make_prediction_by_movie(movie_id):
+    # Read movie_matrix
+    movies = pd.read_csv("data/processed/movie_matrix.csv")
 
-    # Make predictions using `model.pkl`
-    predictions = make_predictions(
-        users_id, "models/model.pkl", "data/processed/user_matrix.csv"
-    )
+    # Filter with the movie_id
+    movie = movies[movies["movieId"] == movie_id]
 
-    print(predictions)
+    print(movie)
+    # Drop movieId
+    movie = movie.drop("movieId", axis=1)
+
+    # Open model
+    filehandler = open("models/model.pkl", "rb")
+    model = pickle.load(filehandler)
+    filehandler.close()
+
+    print("Model loaded")
+
+    # Calculate nearest neighbors
+    distances, indices = model.kneighbors(movie)
+
+    print(distances, indices)
+
+    return distances, indices

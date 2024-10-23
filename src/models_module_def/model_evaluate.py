@@ -10,7 +10,7 @@ import pandas as pd
 
 from src.common_utils import save_json
 from src.entity import ModelEvaluationConfig
-from src.models_module_def.model_predict import make_predictions
+from src.models_module_def.model_predict import make_prediction_by_user
 
 
 class ModelEvaluation:
@@ -58,9 +58,7 @@ class ModelEvaluation:
         user_sample = self.get_test_sample(users)
 
         # Get predictions
-        distances, indices = make_predictions(
-            user_sample, self.config.model_path, self.config.user_filename
-        )
+        distances, indices = make_prediction_by_user(user_sample)
 
         pseudo_ratings = self.generate_pseudo_ratings(indices, distances)
         intra_list_similarity = self.get_avg_pseudo_rating(pseudo_ratings)
