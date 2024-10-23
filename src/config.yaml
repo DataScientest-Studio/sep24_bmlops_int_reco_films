@@ -4,7 +4,6 @@ data_ingestion:
   filenames:
     - movies.csv
     - ratings.csv
-    - README.txt
 
 data_split:
   root_dir: data/raw

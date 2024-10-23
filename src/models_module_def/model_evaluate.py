@@ -1,4 +1,5 @@
 import pickle
+import sys
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -7,6 +8,11 @@ import mlflow
 import mlflow.sklearn
 import numpy as np
 import pandas as pd
+
+# Add parent directory to path
+parent_folder = str(Path(__file__).parent.parent.parent)
+sys.path.append(parent_folder)
+
 
 from src.common_utils import save_json
 from src.entity import ModelEvaluationConfig
@@ -90,7 +96,7 @@ class ModelEvaluation:
             # There are other ways to use the Model Registry, which depends on the use case.
 
             mlflow.sklearn.log_model(
-                model, "model", registered_model_name="ElasticnetModel"
+                model, "model", registered_model_name="NearestNeighbors"
             )
 
         else:

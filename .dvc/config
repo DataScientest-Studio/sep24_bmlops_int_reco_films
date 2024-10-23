@@ -1,6 +1,7 @@
 [core]
     analytics = false
     remote = origin
+    autostage = true
 ['remote "remote_gdrive"']
     url = gdrive://1r0V4Jz9mEIFporQdIS4GYjIj8b8PQAE7
     gdrive_use_service_account = true
