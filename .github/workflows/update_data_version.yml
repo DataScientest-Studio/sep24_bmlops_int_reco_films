@@ -1,0 +1,37 @@
+name: Increase Data Version
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch: 
+jobs:
+  update-data-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Load data version
+        id: load_version
+        run: |
+          if [ ! -f data_version.txt ]; then
+            echo "1998" > data_version.txt
+          fi
+          year=$(cat data_version.txt)
+          echo "Current year is: $year"
+          echo "::set-output name=current::$year"
+
+      - name: Increase data version
+        id: increase_version
+        run: |
+          count=$((${{ steps.load_version.outputs.current }} + 3))
+          echo $year > data_version.txt
+          echo "New year is: $year"
+          echo "::set-output name=new::$year"
+
+      - name: Commit and push updated data version
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add data_version.txt
+          git commit -m "Increase data version to ${{ steps.increase_data_version.outputs.new }}"
+          git push
