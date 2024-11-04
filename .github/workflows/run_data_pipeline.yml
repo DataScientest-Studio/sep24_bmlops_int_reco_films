@@ -1,0 +1,32 @@
+name: Run data pipeline to retrain model 
+on:
+  workflow_run:
+    workflows: ["Increase Data Version"]
+    types:
+      - completed 
+  workflow_dispatch: 
+jobs:
+  run-dvc-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+      uses: actions/checkout@v3
+
+      - name: Setup DVC
+      uses: iterative/setup-dvc@v1
+
+      - name: Run DVC pipeline | retrain model 
+        run: |
+          dvc repro data_update
+          dvc repro data_validation
+          dvc repro data_transformation
+          dvc repro model_train
+          dvc repro model_evaluation
+
+      - name: Commit and push updated model
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add models/model.pkl
+          git commit -m "[Github Action]: Update model with retrained model"
+          git push
