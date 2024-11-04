@@ -91,3 +91,10 @@ Convention : All python scripts must be run from the root specifying the relativ
 ### Note that we have 10 recommandations per user
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+
+
+# Notes
+
+Start API locally:
+
+`fastapi dev .\src\api\main.py`
