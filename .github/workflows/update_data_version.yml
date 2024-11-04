@@ -23,7 +23,7 @@ jobs:
       - name: Increase data version
         id: increase_version
         run: |
-          count=$((${{ steps.load_version.outputs.current }} + 3))
+          year=$((${{ steps.load_version.outputs.current }} + 3))
           echo $year > data_version.txt
           echo "New year is: $year"
           echo "::set-output name=new::$year"
