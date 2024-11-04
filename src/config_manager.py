@@ -52,6 +52,8 @@ class ConfigurationManager:
 
     def get_data_update_config(self) -> DataUpdateConfig:
         config = self.config.data_update
+        with open("data_version.txt", "r") as file:
+            year = int(file.read())
 
         create_directories([config.target_dir])
 
@@ -59,7 +61,7 @@ class ConfigurationManager:
             root_dir=config.root_dir,
             target_dir=config.target_dir,
             filenames=config.filenames,
-            year=config.year,
+            year=year,
         )
 
         return data_update_config
@@ -131,4 +133,5 @@ class ConfigurationManager:
             mlflow_uri=f"git clone https://github.com/{repo_owner}/{repo_name}.git",
         )
 
+        return model_evaluation_config
         return model_evaluation_config
