@@ -33,5 +33,5 @@ jobs:
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
           git add data_version.txt
-          git commit -m "Increase data version to ${{ steps.increase_version.outputs.new }}"
+          git commit -m "[Github Action]: Update last year to be taken into account to ${{ steps.increase_version.outputs.new }}"
           git push
