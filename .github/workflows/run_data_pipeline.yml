@@ -5,15 +5,16 @@ on:
     types:
       - completed 
   workflow_dispatch: 
+
 jobs:
   run-dvc-pipeline:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-      uses: actions/checkout@v3
+        uses: actions/checkout@v3  
 
       - name: Setup DVC
-      uses: iterative/setup-dvc@v1
+        uses: iterative/setup-dvc@v1 
 
       - name: Run DVC pipeline | retrain model 
         run: |
