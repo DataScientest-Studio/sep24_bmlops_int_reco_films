@@ -1,3 +1,5 @@
+import os
+
 from src.common_utils import create_directories, read_yaml
 from src.config import CONFIG_FILE_PATH, PARAMS_FILE_PATH, SCHEMA_FILE_PATH
 from src.entity import (
@@ -120,6 +122,7 @@ class ConfigurationManager:
         config = self.config.model_evaluation
         repo_owner = "castolpe"
         repo_name = "sep24_bmlops_int_reco_films"
+        repo_token = os.getenv("DAGSHUB_TOKEN")
 
         create_directories([config.root_dir])
 
@@ -130,6 +133,7 @@ class ConfigurationManager:
             metric_file_name=config.metric_file_name,
             repo_owner=repo_owner,
             repo_name=repo_name,
+            repo_token=repo_token,
             mlflow_uri=f"https://dagshub.com/{repo_owner}/{repo_name}.mlflow",
         )
 

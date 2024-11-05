@@ -22,6 +22,8 @@ jobs:
           pip install python-box ensure pandas pathlib scikit-learn dagshub mlflow numpy
 
       - name: Run DVC pipeline | retrain model 
+        env: 
+          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
         run: |
           dvc repro data_update
           dvc repro data_validation
