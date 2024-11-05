@@ -36,3 +36,4 @@ jobs:
           git add models/model.pkl
           git commit -m "[Github Action]: Update model with retrained model"
           git push
+          dvc push
