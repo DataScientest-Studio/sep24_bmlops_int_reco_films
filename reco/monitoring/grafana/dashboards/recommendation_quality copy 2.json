@@ -1,0 +1,38 @@
+cat > monitoring/grafana/dashboards/recommendation_quality.json << 'EOF'
+{
+  "dashboard": {
+    "id": null,
+    "title": "Recommendation Quality Dashboard",
+    "panels": [
+      {
+        "type": "graph",
+        "title": "Recommendation NDCG Score Over Time",
+        "targets": [
+          {
+            "expr": "recommendation_ndcg_score",
+            "legendFormat": "NDCG Score"
+          }
+        ],
+        "xaxis": {
+          "mode": "time"
+        },
+        "yaxes": [
+          {
+            "label": "NDCG Score",
+            "format": "short"
+          },
+          {
+            "format": "short"
+          }
+        ]
+      }
+    ],
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "schemaVersion": 16,
+    "version": 1
+  }
+}
+EOF

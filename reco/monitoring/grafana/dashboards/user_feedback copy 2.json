@@ -1,0 +1,38 @@
+sep24_bmlops_int_reco_films/monitoring/grafana/dashboards/user_feedback copy.jsoncat > monitoring/grafana/dashboards/user_feedback.json << 'EOF'
+{
+  "dashboard": {
+    "id": null,
+    "title": "User Feedback Dashboard",
+    "panels": [
+      {
+        "type": "graph",
+        "title": "User Satisfaction Score Over Time",
+        "targets": [
+          {
+            "expr": "user_satisfaction_score",
+            "legendFormat": "Satisfaction Score"
+          }
+        ],
+        "xaxis": {
+          "mode": "time"
+        },
+        "yaxes": [
+          {
+            "label": "Score",
+            "format": "short"
+          },
+          {
+            "format": "short"
+          }
+        ]
+      }
+    ],
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "schemaVersion": 16,
+    "version": 1
+  }
+}
+EOF

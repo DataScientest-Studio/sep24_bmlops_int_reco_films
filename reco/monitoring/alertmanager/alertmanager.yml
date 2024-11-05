@@ -1,0 +1,17 @@
+# monitoring/alertmanager/alertmanager.yml
+
+global:
+  resolve_timeout: 5m
+
+route:
+  receiver: 'email-alert'
+
+receivers:
+- name: 'email-alert'
+  email_configs:
+  - to: 'your-email@example.com'
+    from: 'alertmanager@example.com'
+    smarthost: 'smtp.example.com:587'
+    auth_username: 'your-email@example.com'
+    auth_password: 'your-email-password'
+#Note: Replace the email configurations with your actual email settings.

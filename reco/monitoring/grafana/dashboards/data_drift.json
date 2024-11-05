@@ -1,0 +1,24 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": "data-drift",
+    "title": "Data Drift",
+    "tags": ["mlops", "data"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "type": "graph",
+        "title": "Data Drift Metric",
+        "targets": [
+          {
+            "expr": "data_drift_metric",
+            "legendFormat": "Data Drift",
+            "refId": "A"
+          }
+        ],
+        "datasource": "Prometheus"
+      }
+    ]
+  },
+  "overwrite": true
+}

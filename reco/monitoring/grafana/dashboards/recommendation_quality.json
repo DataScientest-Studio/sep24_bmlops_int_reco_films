@@ -1,0 +1,24 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": "recommendation-quality",
+    "title": "Recommendation Quality",
+    "tags": ["mlops", "quality"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "type": "graph",
+        "title": "Recommendation Quality Score",
+        "targets": [
+          {
+            "expr": "recommendation_quality_score",
+            "legendFormat": "Quality Score",
+            "refId": "A"
+          }
+        ],
+        "datasource": "Prometheus"
+      }
+    ]
+  },
+  "overwrite": true
+}

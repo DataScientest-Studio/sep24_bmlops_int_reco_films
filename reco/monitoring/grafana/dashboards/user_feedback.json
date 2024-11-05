@@ -1,0 +1,24 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": "user-feedback",
+    "title": "User Feedback",
+    "tags": ["mlops", "feedback"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "type": "graph",
+        "title": "User Feedback Count",
+        "targets": [
+          {
+            "expr": "user_feedback_count",
+            "legendFormat": "Feedback Count",
+            "refId": "A"
+          }
+        ],
+        "datasource": "Prometheus"
+      }
+    ]
+  },
+  "overwrite": true
+}

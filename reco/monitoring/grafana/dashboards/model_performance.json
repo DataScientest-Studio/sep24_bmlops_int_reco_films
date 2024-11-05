@@ -1,0 +1,40 @@
+{
+    "dashboard": {
+      "id": null,
+      "title": "Model Performance Dashboard",
+      "panels": [
+        {
+          "type": "graph",
+          "title": "Model RMSE Over Time",
+          "targets": [
+            {
+              "expr": "model_rmse",
+              "legendFormat": "RMSE"
+            }
+          ],
+          "xaxis": {
+            "mode": "time"
+          },
+          "yaxes": [
+            {
+              "label": "RMSE",
+              "format": "short"
+            },
+            {
+              "format": "short"
+            }
+          ]
+        }
+      ],
+      "time": {
+        "from": "now-6h",
+        "to": "now"
+      },
+      "templating": {
+        "list": []
+      },
+      "schemaVersion": 16,
+      "version": 1
+    }
+  }
+  

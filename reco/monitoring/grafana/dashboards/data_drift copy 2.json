@@ -1,0 +1,38 @@
+cat > monitoring/grafana/dashboards/data_drift.json << 'EOF'
+{
+  "dashboard": {
+    "id": null,
+    "title": "Data Drift Dashboard",
+    "panels": [
+      {
+        "type": "graph",
+        "title": "Data Drift Share Over Time",
+        "targets": [
+          {
+            "expr": "data_drift_share",
+            "legendFormat": "Drifted Features Share"
+          }
+        ],
+        "xaxis": {
+          "mode": "time"
+        },
+        "yaxes": [
+          {
+            "label": "Share",
+            "format": "percent"
+          },
+          {
+            "format": "short"
+          }
+        ]
+      }
+    ],
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "schemaVersion": 16,
+    "version": 1
+  }
+}
+EOF
