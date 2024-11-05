@@ -25,14 +25,14 @@ class ModelEvaluation:
 
         print(self.config.repo_token)
 
+        dagshub.auth.add_app_token(self.config.repo_token)
+
         dagshub.init(
             repo_owner=self.config.repo_owner,
             repo_name=self.config.repo_name,
             mlflow=True,
             dvc=True,
         )
-
-        dagshub.auth.add_app_token(self.config.repo_token)
 
     # Return a sample of users to test the model
     def get_test_sample(self, users, sample_size=0.2, random_state=42):
