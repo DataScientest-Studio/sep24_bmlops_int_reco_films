@@ -31,11 +31,9 @@ jobs:
           dvc repro model_train
           dvc repro model_evaluation
 
-      - name: Commit and push updated model
+      - name: Push updated model to DVC
+        env:
+            DVC_REMOTE_URL: ${{ secrets.DVC_REMOTE_URL }}
+            DVC_REMOTE_KEY: ${{ secrets.DAGSHUB_TOKEN }}  
         run: |
-          git config --global user.name 'github-actions'
-          git config --global user.email 'github-actions@github.com'
-          git add models/model.pkl
-          git commit -m "[Github Action]: Update model with retrained model"
-          git push
           dvc push
