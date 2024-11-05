@@ -33,7 +33,10 @@ jobs:
 
       - name: Push updated model to DVC
         env:
-            DVC_REMOTE_URL: ${{ secrets.DVC_REMOTE_URL }}
-            DVC_REMOTE_KEY: ${{ secrets.DAGSHUB_TOKEN }}  
+            DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
+            DAGSHUB_USERNAME: ${{ secrets.DAGSHUB_USERNAME }}
         run: |
+          dvc remote modify dagshub auth basic
+          dvc remote modify dagshub user $DAGSHUB_USERNAME
+          dvc remote modify dagshub password $DAGSHUB_TOKEN
           dvc push
