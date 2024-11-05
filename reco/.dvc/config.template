@@ -1,0 +1,6 @@
+[core]
+    remote = storage
+
+[remote "storage"]
+    url = ${STORAGE_URL}
+    connection_string = ${STORAGE_CONNECTION_STRING} 
