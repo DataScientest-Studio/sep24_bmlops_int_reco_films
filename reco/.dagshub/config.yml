@@ -1,0 +1,33 @@
+storage:
+  raw_data:
+    type: s3
+    path: data/raw
+    bucket: your-bucket-name
+    aws_access_key_id: ${AWS_ACCESS_KEY_ID}
+    aws_secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+
+  processed_data:
+    type: s3
+    path: data/processed
+    bucket: your-bucket-name
+    aws_access_key_id: ${AWS_ACCESS_KEY_ID}
+    aws_secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+
+  models:
+    type: s3
+    path: models/trained_models
+    bucket: your-bucket-name
+    aws_access_key_id: ${AWS_ACCESS_KEY_ID}
+    aws_secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+
+mlflow:
+  tracking_uri: https://dagshub.com/yourusername/movie-recommendation.mlflow
+  experiment_name: movie_recommendation
+
+metrics:
+  - name: RMSE
+    goal: minimize
+  - name: MAE
+    goal: minimize
+  - name: NDCG
+    goal: maximize 
