@@ -1,0 +1,76 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual Environment
+venv/
+env/
+.env
+k8s_env/
+
+# Data and models
+data/
+models/
+*.csv
+*.pkl
+*.joblib
+*.h5
+*.keras
+
+# Logs and monitoring
+logs/
+*.log
+prometheus_data/
+grafana_data/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb
+
+# MLflow
+mlruns/
+mlflow.db
+
+# Airflow
+airflow.db
+airflow.cfg
+unittests.cfg
+airflow-webserver.pid
+airflow-worker.pid
+logs/
+airflow-*.err
+airflow-*.out
+airflow-*.pid
+
+# Docker
+docker-compose*.yml
+Dockerfile
+.dockerignore
+
+# Kubernetes
+k8s/
+kubeconfig
+*.yaml
+!deployment/*.yaml
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Misc
+.DS_Store
+*.bak
+*.swp
+*.swo
+.env*
+!.env.example
+
+# Keep
+!requirements.txt
+!README.md
+!deployment/kubernetes/*.yaml
