@@ -1,7 +1,6 @@
 import pickle
 import sys
 from pathlib import Path
-from urllib.parse import urlparse
 
 import dagshub
 import mlflow
@@ -31,9 +30,10 @@ class ModelEvaluation:
 
     # Return a sample of users to test the model
     def get_test_sample(self, users, sample_size=0.2, random_state=42):
-        sample = users.sample(frac=sample_size, random_state=random_state)
-        sample_ids = sample["userId"].values
-        return sample_ids
+        sample = users.drop(columns=["userId"]).sample(
+            frac=sample_size, random_state=random_state
+        )
+        return sample
 
     # Returns a list of pseudo-ratings for the recommended movies
     def generate_pseudo_ratings(self, indices, distances):
@@ -77,27 +77,27 @@ class ModelEvaluation:
         filehandler.close()
 
         mlflow.set_registry_uri(self.config.mlflow_uri)
-        tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
 
-        intra_list_similarity = self.evaluate()
+        with mlflow.start_run():
+            intra_list_similarity = self.evaluate()
 
-        # Saving metric as local file
-        save_json(
-            path=Path(self.config.metric_file_name),
-            data={"intra_list_similarity": intra_list_similarity},
-        )
-
-        # Log the metric into MLflow
-        mlflow.log_metric("intra_list_similarity", intra_list_similarity)
-
-        # Model registry does not work with file store
-        if tracking_url_type_store != "file":
-            # Register the model
-            # There are other ways to use the Model Registry, which depends on the use case.
-
-            mlflow.sklearn.log_model(
-                model, "model", registered_model_name="NearestNeighbors"
+            # Saving metric as local file
+            save_json(
+                path=Path(self.config.metric_file_name),
+                data={"intra_list_similarity": intra_list_similarity},
             )
 
-        else:
-            mlflow.sklearn.log_model(model, "model")
+            # Log the metric into MLflow
+            mlflow.log_metric("intra_list_similarity", intra_list_similarity)
+
+            users = pd.read_csv(self.config.user_filename)
+            user_sample = self.get_test_sample(users)
+            input_example = user_sample.iloc[0].to_dict()
+
+            mlflow.sklearn.log_model(
+                model,
+                "model",
+                registered_model_name="NearestNeighbors",
+                input_example=input_example,
+            )
+            print(f"Model registered with intra_similarity: {intra_list_similarity}")

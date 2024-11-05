@@ -12,7 +12,7 @@ from src.models_module_def.model_evaluate import ModelEvaluation
 STAGE_NAME = "Model evaluation stage"
 
 
-class ModelEvaluationTrainingPipeline:
+class ModelEvaluationPipeline:
     def __init__(self):
         pass
 
@@ -26,7 +26,7 @@ class ModelEvaluationTrainingPipeline:
 if __name__ == "__main__":
     try:
         logger.info(f">>>>> stage {STAGE_NAME} started <<<<<")
-        obj = ModelEvaluationTrainingPipeline()
+        obj = ModelEvaluationPipeline()
         obj.main()
         logger.info(f">>>>> stage {STAGE_NAME} completed <<<<< \n\n x========x")
     except Exception as e:

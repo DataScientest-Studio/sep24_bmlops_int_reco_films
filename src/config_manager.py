@@ -130,8 +130,7 @@ class ConfigurationManager:
             metric_file_name=config.metric_file_name,
             repo_owner=repo_owner,
             repo_name=repo_name,
-            mlflow_uri=f"git clone https://github.com/{repo_owner}/{repo_name}.git",
+            mlflow_uri=f"https://dagshub.com/{repo_owner}/{repo_name}.mlflow",
         )
 
-        return model_evaluation_config
         return model_evaluation_config
