@@ -74,3 +74,4 @@ kubeconfig
 !requirements.txt
 !README.md
 !deployment/kubernetes/*.yaml
+.dvc/config
