@@ -1,0 +1,66 @@
+# config/config.yaml
+
+# Application Configuration
+app:
+  name: movie-recommendation
+  version: 1.0.0
+  environment: development
+
+# Data Paths
+data:
+  raw_path: data/raw/
+  processed_path: data/processed/
+  evaluation_path: data/evaluation/
+  model_path: models/trained_models/
+
+# Model Parameters
+model:
+  algorithm: collaborative_filtering
+  n_factors: 100
+  n_epochs: 20
+  learning_rate: 0.005
+  regularization: 0.02
+  random_state: 42
+
+# Training Parameters
+training:
+  test_size: 0.2
+  validation_size: 0.1
+  batch_size: 64
+  early_stopping_patience: 3
+  max_epochs: 100
+
+# API Configuration
+api:
+  host: 0.0.0.0
+  port: 8000
+  workers: 4
+  timeout: 60
+  rate_limit: 100
+
+# Monitoring
+monitoring:
+  performance_threshold:
+    rmse: 1.0
+    mae: 0.8
+  drift_threshold: 0.1
+  check_interval_minutes: 30
+
+# MLflow
+mlflow:
+  tracking_uri: http://localhost:5000
+  experiment_name: movie_recommendations
+
+# Database
+database:
+  host: localhost
+  port: 5432
+  name: movie_recommendations
+  user: ${DB_USER}
+  password: ${DB_PASSWORD}
+
+# Logging
+logging:
+  level: INFO
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  file: logs/app.log

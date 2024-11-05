@@ -1,0 +1,7 @@
+# config/monitoring_config.yaml
+
+monitoring:
+  performance_thresholds:
+    rmse: 1.0
+  drift_detection:
+    threshold: 0.5

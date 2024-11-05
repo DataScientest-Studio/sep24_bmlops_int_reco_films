@@ -1,0 +1,14 @@
+airflow:
+  executor: "LocalExecutor"
+  sql_alchemy_conn: "sqlite:///airflow.db"
+  parallelism: 32
+  dags_folder: "/opt/airflow/dags"
+  base_url: "http://localhost:8080"
+
+# config/airflow_config.yaml
+
+airflow:
+  dags_folder: '/path/to/airflow/dags'
+  base_log_folder: '/path/to/airflow/logs'
+  executor: 'LocalExecutor'
+  sql_alchemy_conn: 'sqlite:////path/to/airflow/airflow.db'

@@ -1,0 +1,6 @@
+# config/retraining_config.yaml
+
+retraining:
+  schedule: '@weekly'
+  subset_size: 100000
+  evaluation_metric: 'rmse'
