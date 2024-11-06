@@ -31,7 +31,10 @@ jobs:
           dvc repro model_train
           dvc repro model_evaluation
 
-      - name: Push updated model to DVC
+      - name: Commit DVC outputs
+        run: dvc commit
+
+      - name: Push DVC outputs
         env:
             DVC_REMOTE_URL: ${{ secrets.DVC_REMOTE_URL }}
             DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
@@ -41,3 +44,11 @@ jobs:
           dvc remote modify origin --local access_key_id $DVC_ACCESS_KEY
           dvc remote modify origin --local secret_access_key $DVC_ACCESS_KEY
           dvc push
+
+      - name: Git Commit DVC changes
+        run: |
+            git config --global user.name 'github-actions'
+            git config --global user.email 'github-actions@github.com'
+            git add .
+            git commit -m "[Github Action]: Update DVC outputs"
+            git push
