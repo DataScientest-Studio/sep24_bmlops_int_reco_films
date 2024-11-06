@@ -3,6 +3,7 @@ from pathlib import Path
 
 import pandas as pd
 from fastapi import FastAPI
+from prometheus_fastapi_instrumentator import Instrumentator
 from pydantic import BaseModel
 
 # Add parent directory to path
@@ -15,6 +16,9 @@ from src.models_module_def.model_predict import (
 )
 
 app = FastAPI()
+
+# Setup Prometheus metrics
+Instrumentator().instrument(app).expose(app)
 
 movie_path = "data/processed/movie_matrix.csv"
 user_path = "data/processed/user_matrix.csv"
