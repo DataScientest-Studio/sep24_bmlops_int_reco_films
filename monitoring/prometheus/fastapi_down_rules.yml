@@ -1,0 +1,11 @@
+groups:
+  - name: FastAPI Service Down
+    rules:
+      - alert: FastAPIAppDown
+        expr: up{job="fastapi"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "FastAPI service is not available"
+          description: "The FastAPI service {{ $labels.instance }} has been unavailable for more than 1 minute."

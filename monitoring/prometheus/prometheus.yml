@@ -5,3 +5,5 @@ scrape_configs:
   - job_name: "fastapi"
     static_configs:
       - targets: ["fastapi:8000"]
+rule_files:
+  - "fastapi_down_rules.yml"
