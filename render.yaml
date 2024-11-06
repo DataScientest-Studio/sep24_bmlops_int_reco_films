@@ -1,8 +1,36 @@
 services:
   - type: web
-    name: sep24_bmlops_int_reco_films
-    runtime: python
+    name: fastapi
+    env: docker
     plan: free
-    autoDeploy: false
-    buildCommand: pip install -r requirements.api.txt
-    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    dockerfilePath: Dockerfile.api
+    envVars:
+      - key: PORT
+        value: 8000
+  
+  - type: web
+    name: prometheus
+    env: docker
+    plan: free
+    image: prom/prometheus
+    envVars:
+      - key: PORT
+        value: 9090
+
+  - type: web
+    name: grafana
+    env: docker
+    plan: free
+    image: grafana/grafana
+    envVars:
+      - key: PORT
+        value: 3000
+
+  - type: web
+    name: alertmanager
+    env: docker
+    plan: free
+    image: prom/alertmanager
+    envVars:
+      - key: PORT
+        value: 9093
