@@ -74,23 +74,23 @@ stages:
     outs:
     - path: data/interim/movies.csv
       hash: md5
-      md5: fc360982040777441da97ac19f9c926f
-      size: 101900
+      md5: f81f6f557a9fd41c7a5c425f64fbc21f
+      size: 383876
     - path: data/interim/ratings.csv
       hash: md5
-      md5: 40a6617aa1bbb8d986a78c0d08e740c1
-      size: 92347755
+      md5: 2e80301b9be4ebf0baad6e40aa2dd8d4
+      size: 466007295
   data_validation:
     cmd: python src/pipeline_steps/stage04_data_validation.py
     deps:
     - path: data/interim/movies.csv
       hash: md5
-      md5: fc360982040777441da97ac19f9c926f
-      size: 101900
+      md5: f81f6f557a9fd41c7a5c425f64fbc21f
+      size: 383876
     - path: data/interim/ratings.csv
       hash: md5
-      md5: 40a6617aa1bbb8d986a78c0d08e740c1
-      size: 92347755
+      md5: 2e80301b9be4ebf0baad6e40aa2dd8d4
+      size: 466007295
     - path: src/config.yaml
       hash: md5
       md5: de94bebcfad84e191597058842153b42
