@@ -5,12 +5,12 @@ stages:
     deps:
     - path: src/config.yaml
       hash: md5
-      md5: b67e477f301c8e0b466ea81cfcdf6c44
-      size: 1068
+      md5: de94bebcfad84e191597058842153b42
+      size: 1113
     - path: src/pipeline_steps/stage01_data_ingestion.py
       hash: md5
-      md5: 96886e3b95865dcdd3c3f2d3daec4971
-      size: 1088
+      md5: 737598f17131f74fa6d1c8055b5852a2
+      size: 1129
     outs:
     - path: data/raw/movies.csv
       hash: md5
@@ -33,72 +33,72 @@ stages:
       size: 533444411
     - path: src/config.yaml
       hash: md5
-      md5: b67e477f301c8e0b466ea81cfcdf6c44
-      size: 1068
+      md5: de94bebcfad84e191597058842153b42
+      size: 1113
     - path: src/pipeline_steps/stage02_data_split.py
       hash: md5
-      md5: 60841af0d9a007b8c4f268275a24f2fa
-      size: 1004
+      md5: e171adc534611cde390d9c54ac9454cc
+      size: 1043
     outs:
     - path: data/interim/movies
       hash: md5
-      md5: f170f01d202948d32f56f535d2a1ac67.dir
-      size: 767519
+      md5: b8fc44eee9dfedd50dd0b17081f7b2b7.dir
+      size: 782879
       nfiles: 6
     - path: data/interim/ratings
       hash: md5
-      md5: e5f9cfb1cf29f6f45db02dfc4e13fba6.dir
-      size: 700080281
+      md5: d320c5f301e745fe158c9f37f1451500.dir
+      size: 720080550
       nfiles: 6
   data_update:
     cmd: python src/pipeline_steps/stage03_data_update.py
     deps:
     - path: data/interim/movies
       hash: md5
-      md5: f170f01d202948d32f56f535d2a1ac67.dir
-      size: 767519
+      md5: b8fc44eee9dfedd50dd0b17081f7b2b7.dir
+      size: 782879
       nfiles: 6
     - path: data/interim/ratings
       hash: md5
-      md5: e5f9cfb1cf29f6f45db02dfc4e13fba6.dir
-      size: 700080281
+      md5: d320c5f301e745fe158c9f37f1451500.dir
+      size: 720080550
       nfiles: 6
     - path: src/config.yaml
       hash: md5
-      md5: b67e477f301c8e0b466ea81cfcdf6c44
-      size: 1068
+      md5: de94bebcfad84e191597058842153b42
+      size: 1113
     - path: src/pipeline_steps/stage03_data_update.py
       hash: md5
-      md5: 0b78b155e5656d7bc9e1654c5f2e48e1
-      size: 1016
+      md5: 7cc2c93d8d89fd869d5cfd6ab0593761
+      size: 1055
     outs:
     - path: data/interim/movies.csv
       hash: md5
-      md5: efaa3cd807f639e0d363ed5ddd7e211c
-      size: 577489
+      md5: f81f6f557a9fd41c7a5c425f64fbc21f
+      size: 383876
     - path: data/interim/ratings.csv
       hash: md5
-      md5: 7c9ae73dc1d8d9cabd778a263a97b4f7
-      size: 595649941
+      md5: 2e80301b9be4ebf0baad6e40aa2dd8d4
+      size: 466007295
   data_validation:
     cmd: python src/pipeline_steps/stage04_data_validation.py
     deps:
     - path: data/interim/movies.csv
       hash: md5
-      md5: efaa3cd807f639e0d363ed5ddd7e211c
-      size: 577489
+      md5: f81f6f557a9fd41c7a5c425f64fbc21f
+      size: 383876
     - path: data/interim/ratings.csv
       hash: md5
-      md5: 7c9ae73dc1d8d9cabd778a263a97b4f7
-      size: 595649941
+      md5: 2e80301b9be4ebf0baad6e40aa2dd8d4
+      size: 466007295
     - path: src/config.yaml
       hash: md5
-      md5: b67e477f301c8e0b466ea81cfcdf6c44
-      size: 1068
+      md5: de94bebcfad84e191597058842153b42
+      size: 1113
     - path: src/pipeline_steps/stage04_data_validation.py
       hash: md5
-      md5: 14e4d679e2847eb4b0a830e457a64eb5
-      size: 1037
+      md5: 234f9cae463d6d5bb482df6327053d00
+      size: 1072
     outs:
     - path: data/status.txt
       hash: md5
@@ -113,62 +113,62 @@ stages:
       size: 23
     - path: src/config.yaml
       hash: md5
-      md5: b67e477f301c8e0b466ea81cfcdf6c44
-      size: 1068
+      md5: de94bebcfad84e191597058842153b42
+      size: 1113
     - path: src/pipeline_steps/stage05_data_transformation.py
       hash: md5
-      md5: 1a09ecf6f91a517188919453842c6974
-      size: 1383
+      md5: 9413c9ea6db037895a6ccf069b2e29e6
+      size: 1429
     outs:
     - path: data/processed/movie_matrix.csv
       hash: md5
-      md5: 838b2e2b8723a12bb3e118c65722c92c
-      size: 524226
+      md5: 9ea07ea56a8987e66688d050a9f38e40
+      size: 95440
     - path: data/processed/user_matrix.csv
       hash: md5
-      md5: e7c8f7eea9352eeb41e5471931df44ad
-      size: 31536350
+      md5: 5aca4111a5a8c8750711e36239279544
+      size: 9735706
   model_train:
     cmd: python src/pipeline_steps/stage06_model_train.py
     deps:
     - path: data/processed/movie_matrix.csv
       hash: md5
-      md5: 838b2e2b8723a12bb3e118c65722c92c
-      size: 524226
+      md5: 9ea07ea56a8987e66688d050a9f38e40
+      size: 95440
     - path: data/processed/user_matrix.csv
       hash: md5
-      md5: e7c8f7eea9352eeb41e5471931df44ad
-      size: 31536350
+      md5: 5aca4111a5a8c8750711e36239279544
+      size: 9735706
     - path: src/config.yaml
       hash: md5
-      md5: b67e477f301c8e0b466ea81cfcdf6c44
-      size: 1068
+      md5: de94bebcfad84e191597058842153b42
+      size: 1113
     - path: src/pipeline_steps/stage06_model_train.py
       hash: md5
-      md5: 33e540440fc191d871a275c90b729213
-      size: 951
+      md5: 655d5f8ed3469593b66c379d6c1288d2
+      size: 985
     outs:
     - path: models/model.pkl
       hash: md5
-      md5: 2b33e66cbf6f30396510eb6827281c80
-      size: 3853463
+      md5: d203d850d5bcb0d712d6c9347bbe4086
+      size: 703366
   model_evaluation:
     cmd: python src/pipeline_steps/stage07_model_evaluate.py
     deps:
     - path: models/model.pkl
       hash: md5
-      md5: 2b33e66cbf6f30396510eb6827281c80
-      size: 3853463
+      md5: d203d850d5bcb0d712d6c9347bbe4086
+      size: 703366
     - path: src/config.yaml
       hash: md5
-      md5: b67e477f301c8e0b466ea81cfcdf6c44
-      size: 1068
+      md5: de94bebcfad84e191597058842153b42
+      size: 1113
     - path: src/pipeline_steps/stage07_model_evaluate.py
       hash: md5
-      md5: 148b8ebf2ad557d3f43d52f73eed8762
-      size: 978
+      md5: 6c83944f24178efeb966d319d8a6ebbc
+      size: 1012
     outs:
     - path: metrics/intra_list_similarity.json
       hash: md5
-      md5: fe0db386a7c67c76aa8801d8ac1177cd
-      size: 50
+      md5: 0c4ab3a875d5784994d3c416e2822878
+      size: 53
