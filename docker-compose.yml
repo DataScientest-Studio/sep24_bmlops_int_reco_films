@@ -1,11 +1,9 @@
 version: '3'
 services:
   fastapi:
-    image: fastapi
     container_name: fastapi
-    build:
-      context: .
-      dockerfile: Dockerfile.api
+    image: cstolpewbs/fastapi:latest
+    pull_policy: always
     ports:
       - "8000:8000"
   prometheus:
