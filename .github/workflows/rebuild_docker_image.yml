@@ -1,0 +1,26 @@
+name: Rebuild Dockerimage
+on:
+  workflow_run:
+    workflows: ["Run data pipeline"]
+    types:
+      - completed 
+  workflow_dispatch: 
+
+jobs:
+  run-dvc-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3  
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build Docker Image
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/fastapi:latest .
+
+      - name: Push Docker Image to Docker Hub
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/fastapi:latest
+
+      - name: Log out of Docker Hub
+        run: docker logout
