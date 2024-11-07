@@ -1,31 +1,35 @@
-Project Name
-==============================
+Movie Recommendation System (MLOps exercise project)
+====================================================
 
-This project is a starting Pack for MLOps projects based on the subject "movie_recommandation". It's not perfect so feel free to make some modifications on it.
+This project was created as part of the MLOps boot camp. The project was used to try out many tools that can be used to deploy ML projects.
 
-Project Organization
+**Developer Team**
+- Asma Heena Khalil
+- Ringo Schwabe
+- Carolin Stolpe
+
+Business Objectives
+------------------
+
+The Movie Recommendation application addresses the challenge of providing personalized movie recommendations to users on a streaming platform. By leveraging collaborative filtering techniques, it enhances the user experience by suggesting movies that align with individual tastes. Sponsored by a streaming service, the project aims to improve user engagement and satisfaction through tailored content.
+
+Architecture
+------------
+
+
+File structure
 ------------
 
     ├── LICENSE
     ├── README.md          <- The top-level README for developers using this project.
     ├── data
-    │   ├── external       <- Data from third party sources.
     │   ├── interim        <- Intermediate data that has been transformed.
     │   ├── processed      <- The final, canonical data sets for modeling.
     │   └── raw            <- The original, immutable data dump.
     │
     ├── logs               <- Logs from training and predicting
     │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
-    │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
+    ├── models             <- Trained and serialized models, model predictions, or model summaries, tracked by DVC
     │
     ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
     │                         generated with `pip freeze > requirements.txt`
@@ -52,46 +56,9 @@ Project Organization
 
 --------
 
-## Steps to follow 
+## How to run locally
 
-Convention : All python scripts must be run from the root specifying the relative file path.
-
-### 1- Create a virtual environment using Virtualenv.
-
-    `python -m venv my_env`
-
-###   Activate it 
-
-    `./my_env/Scripts/activate`
-
-###   Install the packages from requirements.txt  (You can ignore the warning with "setup.py")
-
-    `pip install -r .\requirements.txt`
-
-### 2- Execute import_raw_data.py to import the 4 datasets (say yes when it asks you to create a new folder)
-
-    `python .\src\data\import_raw_data.py` 
-
-### 3- Execute make_dataset.py initializing `./data/raw` as input file path and `./data/processed` as output file path.
-
-    `python .\src\data\make_dataset.py`
-
-### 4- Execute build_features.py to preprocess the data (this can take a while)
-
-    `python .\src\features\build_features.py`
-
-### 5- Execute train_model.py to train the model
-
-    `python .\src\models\train_model.py`
-
-### 5- Finally, execute predict_model.py file to make the predictions (by default you will be printed predictions for the first 5 users of the dataset). 
-
-    `python .\src\models\predict_model.py`
-
-### Note that we have 10 recommandations per user
-
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
-
+xxx
 
 # Notes
 
