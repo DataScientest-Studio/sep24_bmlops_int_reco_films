@@ -1,24 +1,21 @@
-Movie Recommendation System (MLOps exercise project)
-====================================================
 
-This project was created as part of the MLOps boot camp. The project was used to try out many tools that can be used to deploy ML projects.
+# 🎬🎞📶 Movie Recommendation System 
 
-**Developer Team**
+This project was created as part of the MLOps bootcamp (Sep24) 🛠👷🏻‍♂️. The project was used to try out different tools that can be used to deploy ML projects.
+
+
+## 💻 Developer Team:
 - Asma Heena Khalil
 - Ringo Schwabe 
-- Carolin Stolpe [@castolpe](https://github.com/castolpe)
+- Carolin Stolpe ([@castolpe](https://github.com/castolpe))
 
-Business Objectives
-------------------
+## Business Objectives
 
 The Movie Recommendation application addresses the challenge of providing personalized movie recommendations to users on a streaming platform. By leveraging collaborative filtering techniques, it enhances the user experience by suggesting movies that align with individual tastes. Sponsored by a streaming service, the project aims to improve user engagement and satisfaction through tailored content.
 
-Architecture
-------------
+## App Architecture
 
-
-File structure
-------------
+## File structure
 ```
 ├── .dvc                     <- Configuration of the data version control
 ├── .github
@@ -70,14 +67,79 @@ File structure
 └── requirements.txt         <- The requirements file for reproducing the analysis environment, e.g.
                                 generated with `pip freeze > requirements.txt`
 ```
---------
 
-## How to run locally
+## Getting Started
 
-xxx
+To run the app locally follow these steps:
 
-# Notes
+### 1. Clone the project
+```
+git clone https://github.com/DataScientest-Studio/sep24_bmlops_int_reco_films.git
+cd /sep24_bmlops_int_reco_films
+```
 
-Start API locally:
+### 2. Setup virtual environment & install dependencies
+```
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
-`fastapi dev .\src\api\main.py`
+### 3. Download data from remote storage
+Data, metrics and models are stored on Dagshub Remote Storage using DVC. Make sure to download 
+the data before running the app.
+```
+# Configure access to DVC
+dvc remote modify origin --local access_key_id YOUR_DVC_ACCESS_KEY
+dvc remote modify origin --local secret_access_key YOUR_DVC_ACCESS_KEY
+
+# Pull the data
+dvc pull
+```
+
+### 4. Build the Docker 🐳 container and launch the app
+```
+docker-compose up
+```
+
+### 5. Query the endpoints
+```
+# Check, if API is running
+curl -X GET i http://0.0.0.0:8000/status
+
+# Read the API docs
+curl -X GET i http://0.0.0.0:8000/docs
+
+# Get movie recommendation
+curl -X 'POST' \
+  'http://localhost:8000/users/recommendations' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "no_genres_listed": 0,
+  "action": 0,
+  "adventure": 0,
+  "animation": 5,
+  "children": 3,
+  "comedy": 2,
+  "crime": 0,
+  "documentary": 0,
+  "drama": 0,
+  "fantasy": 0,
+  "film_noir": 0,
+  "horror": 0,
+  "imax": 0,
+  "musical": 0,
+  "mystery": 0,
+  "romance": 0,
+  "sci_fi": 0,
+  "thriller": 0,
+  "war": 0,
+  "western": 0
+}'
+
+```
+
+### 6. Checkout the monitoring dashboard
+
+➡ Go to http://localhost:3000/d/_eX4mpl3/fastapi-dashboard in your web browser.
