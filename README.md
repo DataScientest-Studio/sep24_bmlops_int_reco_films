@@ -3,6 +3,7 @@
 
 This project was created as part of the MLOps bootcamp (Sep24) 🛠👷🏻‍♂️. The project was used to try out different tools that can be used to deploy ML projects.
 
+The project is also available on Dagshub: [https://dagshub.com/castolpe/sep24_bmlops_int_reco_films](https://dagshub.com/castolpe/sep24_bmlops_int_reco_films)
 
 ## 💻 Developer Team:
 - Asma Heena Khalil
