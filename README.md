@@ -20,9 +20,13 @@ The Movie Recommendation application addresses the challenge of providing person
 
 ## 🔄 MLOps Workflow Overview
 
-![MLOps Workflow Diagram](/workflow_diagrams/mlops_workflow.png)
+![MLOps Workflow Diagram](workflow_diagrams/mlops_workflow_latest.png)
 
-### 🎯 Workflow Components & Interactions
+> 📝 View the [high-resolution SVG version](workflow_diagrams/mlops_workflow_latest.svg) for better detail.
+
+### 🎯 Detailed Pipeline Steps
+
+Our MLOps pipeline consists of five major components, each handling specific aspects of the machine learning lifecycle:
 
 #### 1️⃣ CI/CD Pipeline (GitHub Actions) 
 - ⏰ **Scheduled Trigger**: Daily at midnight
