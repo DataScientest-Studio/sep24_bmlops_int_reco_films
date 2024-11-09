@@ -74,23 +74,23 @@ stages:
     outs:
     - path: data/interim/movies.csv
       hash: md5
-      md5: efaa3cd807f639e0d363ed5ddd7e211c
-      size: 577489
+      md5: 7eca11ec62179208b3d4cc2bd57a5668
+      size: 761666
     - path: data/interim/ratings.csv
       hash: md5
-      md5: 7c9ae73dc1d8d9cabd778a263a97b4f7
-      size: 595649941
+      md5: 29b6143c2d75cd68dc0e0ada065957d6
+      size: 689940193
   data_validation:
     cmd: python src/pipeline_steps/stage04_data_validation.py
     deps:
     - path: data/interim/movies.csv
       hash: md5
-      md5: efaa3cd807f639e0d363ed5ddd7e211c
-      size: 577489
+      md5: 7eca11ec62179208b3d4cc2bd57a5668
+      size: 761666
     - path: data/interim/ratings.csv
       hash: md5
-      md5: 7c9ae73dc1d8d9cabd778a263a97b4f7
-      size: 595649941
+      md5: 29b6143c2d75cd68dc0e0ada065957d6
+      size: 689940193
     - path: src/config.yaml
       hash: md5
       md5: b67e477f301c8e0b466ea81cfcdf6c44
@@ -122,23 +122,23 @@ stages:
     outs:
     - path: data/processed/movie_matrix.csv
       hash: md5
-      md5: 838b2e2b8723a12bb3e118c65722c92c
-      size: 524226
+      md5: 61847ccebd909b78388a16e4068e92fe
+      size: 701277
     - path: data/processed/user_matrix.csv
       hash: md5
-      md5: e7c8f7eea9352eeb41e5471931df44ad
-      size: 31536350
+      md5: 2af8567e2c440d57d69a30dc9e579c19
+      size: 35759834
   model_train:
     cmd: python src/pipeline_steps/stage06_model_train.py
     deps:
     - path: data/processed/movie_matrix.csv
       hash: md5
-      md5: 838b2e2b8723a12bb3e118c65722c92c
-      size: 524226
+      md5: 61847ccebd909b78388a16e4068e92fe
+      size: 701277
     - path: data/processed/user_matrix.csv
       hash: md5
-      md5: e7c8f7eea9352eeb41e5471931df44ad
-      size: 31536350
+      md5: 2af8567e2c440d57d69a30dc9e579c19
+      size: 35759834
     - path: src/config.yaml
       hash: md5
       md5: b67e477f301c8e0b466ea81cfcdf6c44
@@ -150,15 +150,15 @@ stages:
     outs:
     - path: models/model.pkl
       hash: md5
-      md5: 2b33e66cbf6f30396510eb6827281c80
-      size: 3853463
+      md5: 3caba0a23b58952fdb4364c45bf8aac0
+      size: 5096255
   model_evaluation:
     cmd: python src/pipeline_steps/stage07_model_evaluate.py
     deps:
     - path: models/model.pkl
       hash: md5
-      md5: 2b33e66cbf6f30396510eb6827281c80
-      size: 3853463
+      md5: 3caba0a23b58952fdb4364c45bf8aac0
+      size: 5096255
     - path: src/config.yaml
       hash: md5
       md5: b67e477f301c8e0b466ea81cfcdf6c44
@@ -170,5 +170,5 @@ stages:
     outs:
     - path: metrics/intra_list_similarity.json
       hash: md5
-      md5: fe0db386a7c67c76aa8801d8ac1177cd
+      md5: bee7155e0d4a571228bacef9ca1cfe82
       size: 50
