@@ -1,9 +1,8 @@
-
 # 🎬🎞📶 Movie Recommendation System 
 
-This project was created as part of the MLOps bootcamp (Sep24) 🛠👷🏻‍♂️. The project was used to try out different tools that can be used to deploy ML projects.
+This project was created as part of the MLOps bootcamp (Sep24) 🛠👷🏻‍♂️. The project demonstrates a comprehensive MLOps implementation for deploying and maintaining a movie recommendation system.
 
-The project is also available on Dagshub: [https://dagshub.com/castolpe/sep24_bmlops_int_reco_films](https://dagshub.com/castolpe/sep24_bmlops_int_reco_films)
+Project Repository: [Dagshub](https://dagshub.com/castolpe/sep24_bmlops_int_reco_films)
 
 ## 💻 Developer Team:
 - Asma Heena Khalil
@@ -12,84 +11,173 @@ The project is also available on Dagshub: [https://dagshub.com/castolpe/sep24_bm
 
 ## Business Objectives
 
-The Movie Recommendation application addresses the challenge of providing personalized movie recommendations to users on a streaming platform. By leveraging collaborative filtering techniques, it enhances the user experience by suggesting movies that align with individual tastes. Sponsored by a streaming service, the project aims to improve user engagement and satisfaction through tailored content.
+The Movie Recommendation application addresses the challenge of providing personalized movie recommendations to users on a streaming platform. By leveraging collaborative filtering techniques, it enhances the user experience by suggesting movies that align with individual tastes. Sponsored by a streaming service, the project aims to:
 
-## App Architecture
+- Increase user engagement through personalized content recommendations
+- Improve user retention by suggesting relevant movies
+- Enhance content discovery across the platform's catalog
+- Drive higher user satisfaction through accurate recommendations
 
-## File structure
+## 🔄 MLOps Workflow Overview
+
+![MLOps Workflow Diagram](/workflow_diagrams/mlops_workflow.png)
+
+### 🎯 Workflow Components & Interactions
+
+#### 1️⃣ CI/CD Pipeline (GitHub Actions) 
+- ⏰ **Scheduled Trigger**: Daily at midnight
+- 📈 **Data Version Update**: Increments data version
+- 🚀 **Pipeline Trigger**: Initiates DVC pipeline
+- 📤 **Main Branch Update**: Pushes changes
+- 🔄 **API Deployment**: Triggers new deployment
+
+#### 2️⃣ DVC Pipeline (MLFlow/DVC)
+- 📥 **Data Ingestion**: Appends new data
+- ✅ **Validation**: Ensures data quality
+- 🔄 **Transformation**: Prepares features
+- 🧠 **Model Training**: Updates model
+- 📊 **Evaluation**: Assesses performance
+
+#### 3️⃣ Experiment Monitoring
+- 📚 **MLFlow Registry**: Tracks experiments
+- 💾 **DVC Version Control**: Manages artifacts
+
+#### 4️⃣ Deployed Application
+- 🆕 **API Updates**: New versions
+- 👥 **User Interaction**: Real-time recommendations
+
+#### 5️⃣ Monitoring Stack
+- 📈 **Metrics Collection**: Prometheus
+- 📊 **Dashboard**: Grafana
+- ⚠️ **Alerts**: AlertManager
+
+### 🔄 Pipeline Interactions
+
+1. **Data Update Cycle**
+```mermaid
+graph LR
+    A[⏰ Cron Trigger] --> B[📈 Update Version]
+    B --> C[🚀 Trigger Pipeline]
+    C --> D[📥 Process Data]
+    D --> E[🧠 Train Model]
+    E --> F[📊 Evaluate]
 ```
-├── .dvc                     <- Configuration of the data version control
-├── .github
-│   └── workflows            <- Github Actions to trigger CI/CD pipeline and data pipeline 
-│ 
-├── data
-│   ├── interim              <- Intermediate data that has been transformed.
-│   ├── processed            <- The final, canonical data sets for modeling.
-│   ├── raw                  <- The original, immutable data dump.
-│   └── status.txt           <- Indicator, if current data is valid.
-│
-├── logs                     <- Logs from training and predicting
-│
-├── metrics                  <- Metrics from the evaluated model.
-│ 
-├── models                   <- Trained and serialized models, model predictions, or model summaries
-│
-├── monitoring               <- All files related to the monitoring of the application.
-│   ├── alertmanager         <- Configuration of the alert manager to inform in the event of deviations. 
-│   ├── grafana              <- Configuration of the Grafana dashboard to visualize the metrics collected by Prometheus.
-│   └── prometheues          <- Configuration to collect metrics about the health status of the app, number of requests etc.
-│
-├── notebooks                <- Jupyter notebooks. Naming convention is a number (for ordering),
-│                               the creator's initials, and a short `-` delimited description, e.g.
-│                               `1.0-jqp-initial-data-exploration`.
-│
-├── references               <- Data dictionaries, manuals, and all other explanatory materials.
-│
-├── reports                  <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   └── figures              <- Generated graphics and figures to be used in reporting
-│
-├── src                      <- Source code for use in this project.
-│   ├── api                  <- Definiton of API endpoints
-│   ├── data_module_def      <- Scripts to download, validate and transform data
-│   ├── models_module_def    <- Scripts to train models and then use trained models to make
-│   │                           predictions
-│   ├── pipeline_steps       <- Scripts for the single pipeline_steps from data download to model evaluation
-│   ├── utils                <- Helper functions and other utils (e.g. logger)
-│   ├── visualization        <- Scripts to create exploratory and results oriented visualizations
-│   │   └── visualize.py
-│   ├── config_manager.py    <- Create configuration objects for each of the stages
-│   ├── config.py            <- Paths to the config files
-│   ├── config.yaml          <- Values for the required configuration fields 
-│   └── entity.py            <- Definition of the config fields
-│   dvc.lock                 <- Locks of the last pipeline run
-│   dvc.yaml                 <- Orchestration of pipeline steps (DAG).
-├── LICENSE
-├── README.md                <- The top-level README for developers using this project.
-└── requirements.txt         <- The requirements file for reproducing the analysis environment, e.g.
-                                generated with `pip freeze > requirements.txt`
+
+2. **Deployment Cycle**
+```mermaid
+graph LR
+    A[📊 Evaluation] --> B[📤 Push Changes]
+    B --> C[🔄 Deploy API]
+    C --> D[👥 Users]
+    D --> E[📈 Monitoring]
+```
+
+### 🛠 Component Details
+
+#### 1. Data Pipeline & Version Control
+```bash
+# Data versioning workflow
+├── 📥 Data Ingestion
+├── ✅ Validation
+├── 🔄 Transformation
+├── 🧠 Training
+└── 📊 Evaluation
+```
+
+#### 2. Model Training & Deployment
+```bash
+# Model lifecycle
+├── 🧪 Experiment Tracking (MLFlow)
+├── 📊 Performance Metrics
+├── 📦 Containerization (Docker)
+└── 🚀 API Deployment (FastAPI)
+```
+
+#### 3. Monitoring & Alerts
+```bash
+# Monitoring stack
+├── 📈 Metrics (Prometheus)
+├── 📊 Visualization (Grafana)
+└── ⚠️ Alerting (AlertManager)
+```
+
+### 🔍 Workflow Deep Dive
+
+#### 1. Data Update Process
+1. ⏰ **Trigger**: Daily at midnight
+2. 📈 **Version Update**: Increment data version
+3. 🚀 **Pipeline Start**: Trigger DVC pipeline
+4. 📥 **Data Processing**: Execute pipeline stages
+5. 📊 **Validation**: Ensure quality metrics
+
+#### 2. Model Training Cycle
+1. 🧠 **Training**: Update model with new data
+2. 📊 **Evaluation**: Calculate performance metrics
+3. 📚 **Registry**: Record in MLFlow
+4. 💾 **Versioning**: Save with DVC
+5. 📤 **Push**: Update main branch
+
+#### 3. Deployment Process
+1. 🔄 **Trigger**: New model version available
+2. 📦 **Container**: Build new Docker image
+3. 🚀 **Deploy**: Update API service
+4. 👥 **Users**: Serve new predictions
+5. 📈 **Monitor**: Track performance
+
+### 📊 Monitoring & Feedback
+
+#### Real-time Metrics
+- 🔍 **API Performance**
+  - Response times
+  - Request volumes
+  - Error rates
+
+- 📈 **Model Metrics**
+  - Prediction accuracy
+  - Processing time
+  - Resource usage
+
+- ⚠️ **Alerts**
+  - Performance degradation
+  - Error thresholds
+  - Resource constraints
+
+## Technical Architecture
+
+### Data Flow
+1. Raw data ingestion (`data/raw/`)
+2. Data preprocessing (`data/interim/`)
+3. Feature engineering (`data/processed/`)
+4. Model training (`models/`)
+5. API deployment
+
+### Component Structure
+```
+src/
+├── api/                    # FastAPI implementation
+├── data_module_def/        # Data processing modules
+├── models_module_def/      # Model definition and training
+├── pipeline_steps/         # DVC pipeline stages
+└── utils/                  # Helper functions
 ```
 
 ## Getting Started
 
-To run the app locally follow these steps:
-
 ### 1. Clone the project
-```
+```bash
 git clone https://github.com/DataScientest-Studio/sep24_bmlops_int_reco_films.git
 cd /sep24_bmlops_int_reco_films
 ```
 
 ### 2. Setup virtual environment & install dependencies
-```
+```bash
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. Download data from remote storage
-Data, metrics and models are stored on Dagshub Remote Storage using DVC. Make sure to download 
-the data before running the app.
-```
+### 3. Configure DVC and download data
+```bash
 # Configure access to DVC
 dvc remote modify origin --local access_key_id YOUR_DVC_ACCESS_KEY
 dvc remote modify origin --local secret_access_key YOUR_DVC_ACCESS_KEY
@@ -98,49 +186,283 @@ dvc remote modify origin --local secret_access_key YOUR_DVC_ACCESS_KEY
 dvc pull
 ```
 
-### 4. Build the Docker 🐳 container and launch the app
-```
+### 4. Launch the application
+```bash
 docker-compose up
 ```
 
-### 5. Query the endpoints
+### 5. API Usage
+
+#### Health Check
+```bash
+curl -X GET http://0.0.0.0:8000/status
 ```
-# Check, if API is running
-curl -X GET i http://0.0.0.0:8000/status
 
-# Read the API docs
-curl -X GET i http://0.0.0.0:8000/docs
-
-# Get movie recommendation
+#### Get Recommendations
+```bash
 curl -X 'POST' \
   'http://localhost:8000/users/recommendations' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-  "no_genres_listed": 0,
-  "action": 0,
-  "adventure": 0,
   "animation": 5,
   "children": 3,
   "comedy": 2,
-  "crime": 0,
-  "documentary": 0,
-  "drama": 0,
-  "fantasy": 0,
-  "film_noir": 0,
-  "horror": 0,
-  "imax": 0,
-  "musical": 0,
-  "mystery": 0,
-  "romance": 0,
-  "sci_fi": 0,
-  "thriller": 0,
-  "war": 0,
-  "western": 0
+  // ... other genre preferences
 }'
-
 ```
 
-### 6. Checkout the monitoring dashboard
+### 6. Monitoring Dashboard
 
-➡ Go to http://localhost:3000/d/_eX4mpl3/fastapi-dashboard in your web browser.
+Access the Grafana dashboard at: http://localhost:3000/d/_eX4mpl3/fastapi-dashboard
+
+## MLOps Workflow Achievements
+
+1. **Data Management**
+   - Automated data ingestion and validation
+   - Version control with DVC
+   - Data quality checks
+
+2. **Model Development**
+   - Modular training pipeline
+   - Hyperparameter management
+   - Model versioning
+
+3. **Deployment**
+   - Containerized application
+   - API endpoint implementation
+   - Environment consistency
+
+4. **Monitoring**
+   - Real-time performance tracking
+   - Resource utilization monitoring
+   - Alert system implementation
+
+5. **CI/CD**
+   - Automated testing
+   - Continuous deployment
+   - Pipeline automation
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Detailed User Guide
+
+### System Architecture Overview
+
+Our movie recommendation system implements a comprehensive MLOps pipeline with four core components:
+
+1. **CI/CD Pipeline (GitHub Actions)**
+   - Automated testing and deployment
+   - Daily data updates at midnight
+   - Continuous integration checks
+   - Automated Docker image rebuilding
+
+2. **Data Version Control Pipeline (DVC)**
+   - Data versioning and experiment tracking
+   - Reproducible data processing steps
+   - Model artifact management
+   - Pipeline orchestration
+
+3. **Model Deployment (FastAPI)**
+   - RESTful API endpoints
+   - Real-time recommendations
+   - Containerized deployment
+   - Scalable architecture
+
+4. **Monitoring System (Prometheus/Grafana)**
+   - Real-time performance tracking
+   - Resource utilization monitoring
+   - Custom metrics collection
+   - Automated alerting
+
+### Detailed Workflow
+
+#### 1. Data Pipeline Operations
+
+```bash
+# Update data version manually
+dvc repro data_update
+
+# Run complete pipeline
+dvc repro
+
+# Check pipeline status
+dvc status
+```
+
+The data pipeline includes:
+- Daily automated updates at midnight
+- Data quality validation
+- Feature engineering
+- Version tracking
+
+#### 2. Model Training Workflow
+
+```bash
+# Train new model
+python src/pipeline_steps/stage06_model_train.py
+
+# Evaluate model
+python src/pipeline_steps/stage07_model_evaluate.py
+```
+
+Training process includes:
+- Automated feature selection
+- Hyperparameter optimization
+- Model validation
+- Performance metrics tracking
+
+#### 3. API Interaction Guide
+
+The FastAPI application provides several endpoints:
+
+```python
+# Health check
+GET /status
+
+# Get movie recommendations
+POST /users/recommendations
+{
+    "no_genres_listed": 0,
+    "action": 0,
+    "adventure": 0,
+    "animation": 5,
+    "children": 3,
+    "comedy": 2,
+    ...
+}
+
+# Get model metrics
+GET /metrics
+```
+
+#### 4. Monitoring Setup
+
+1. **Prometheus Configuration**
+```yaml
+# monitoring/prometheus/prometheus.yml
+scrape_configs:
+  - job_name: 'fastapi'
+    static_configs:
+      - targets: ['fastapi:8000']
+```
+
+2. **Grafana Dashboard Access**
+- URL: http://localhost:3000
+- Default credentials:
+  - Username: admin
+  - Password: admin
+
+### Project Structure Deep Dive
+
+```
+sep24_bmlops_int_reco_films/
+├── src/                           # Source code
+│   ├── api/                       # FastAPI application
+│   ├── data_module_def/           # Data processing
+│   ├── models_module_def/         # Model implementation
+│   └── pipeline_steps/            # DVC pipeline stages
+├── monitoring/                    # Monitoring setup
+│   ├── alertmanager/             # Alert configuration
+│   ├── grafana/                  # Dashboards
+│   └── prometheus/               # Metrics collection
+├── data/                         # Data storage
+│   ├── raw/                      # Original data
+│   ├── interim/                  # Preprocessed data
+│   └── processed/                # Final features
+└── models/                       # Model artifacts
+```
+
+### Quality Assurance
+
+1. **Automated Tests**
+```bash
+# Run all tests
+python -m pytest tests/
+
+# Run specific test suite
+python -m pytest tests/test_model.py
+```
+
+2. **Data Validation**
+- Schema validation
+- Data quality checks
+- Missing value detection
+- Anomaly detection
+
+3. **Model Performance Metrics**
+- Intra-list similarity
+- Recommendation accuracy
+- Response time
+- Resource utilization
+
+### Troubleshooting Guide
+
+1. **Common Issues**
+
+```bash
+# DVC issues
+dvc doctor
+
+# Docker issues
+docker-compose logs
+
+# API issues
+curl http://localhost:8000/status
+```
+
+2. **Monitoring Alerts**
+- Check Alertmanager UI: http://localhost:9093
+- Review alert rules in `monitoring/prometheus/alert_rules.yml`
+- Check Grafana alerts dashboard
+
+### Development Workflow
+
+1. **Local Development**
+```bash
+# Create feature branch
+git checkout -b feature/new-feature
+
+# Start development environment
+docker-compose up -d
+
+# Run tests
+pytest
+
+# Submit changes
+git push origin feature/new-feature
+```
+
+2. **Pipeline Updates**
+```bash
+# Modify pipeline stages
+vim dvc.yaml
+
+# Test changes
+dvc repro -f
+
+# Commit updates
+dvc commit
+```
+
+### Maintenance Tasks
+
+1. **Regular Updates**
+- Daily data updates (automated)
+- Weekly model retraining
+- Monthly performance review
+
+2. **Backup Procedures**
+```bash
+# Backup DVC cache
+dvc push
+
+# Backup Docker images
+docker save -o backup.tar image_name
+```
