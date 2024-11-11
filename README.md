@@ -20,7 +20,7 @@ The Movie Recommendation application addresses the challenge of providing person
 
 ## 🔄 MLOps Workflow Overview
 
-![MLOps Workflow Diagram](workflow_diagrams/mlops_workflow_latest.png)
+![MLOps Workflow Diagram](reports/figures/workflow_diagrams/mlops_workflow_latest.png)
 
 > 📝 View the [high-resolution SVG version](workflow_diagrams/mlops_workflow_latest.svg) for better detail.
 
