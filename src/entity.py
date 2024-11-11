@@ -65,3 +65,4 @@ class ModelEvaluationConfig:
     repo_owner: str
     repo_name: str
     repo_token: str | None
+    params: dict
