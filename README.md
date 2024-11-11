@@ -5,8 +5,8 @@ This project was created as part of the MLOps bootcamp (Sep24) 🛠👷🏻‍�
 Project Repository: [Dagshub](https://dagshub.com/castolpe/sep24_bmlops_int_reco_films)
 
 ## 💻 Developer Team:
-- Asma Heena Khalil
-- Ringo Schwabe 
+- Asma Heena Khalil ([@asma484](https://github.com/asma484))
+- Ringo Schwabe ([@roongi](https://github.com/roongi))
 - Carolin Stolpe ([@castolpe](https://github.com/castolpe))
 
 ## Business Objectives
@@ -33,7 +33,7 @@ Our MLOps pipeline consists of five major components, each handling specific asp
 - 📈 **Data Version Update**: Increments data version
 - 🚀 **Pipeline Trigger**: Initiates DVC pipeline
 - 📤 **Main Branch Update**: Pushes changes
-- 🔄 **API Deployment**: Triggers new deployment
+- 🔄 **API Deployment**: Triggers new deployment (in progress 🚧)
 
 #### 2️⃣ DVC Pipeline (MLFlow/DVC)
 - 📥 **Data Ingestion**: Appends new data
@@ -47,13 +47,13 @@ Our MLOps pipeline consists of five major components, each handling specific asp
 - 💾 **DVC Version Control**: Manages artifacts
 
 #### 4️⃣ Deployed Application
-- 🆕 **API Updates**: New versions
+- 🆕 **API Updates**: New versions (🚧)
 - 👥 **User Interaction**: Real-time recommendations
 
 #### 5️⃣ Monitoring Stack
 - 📈 **Metrics Collection**: Prometheus
 - 📊 **Dashboard**: Grafana
-- ⚠️ **Alerts**: AlertManager
+- ⚠️ **Alerts**: AlertManager (🚧)
 
 ### 🔄 Pipeline Interactions
 
@@ -64,7 +64,7 @@ graph LR
     B --> C[🚀 Trigger Pipeline]
     C --> D[📥 Process Data]
     D --> E[🧠 Train Model]
-    E --> F[📊 Evaluate]
+    E --> F[📊 Evaluation]
 ```
 
 2. **Deployment Cycle**
@@ -123,8 +123,8 @@ graph LR
 
 #### 3. Deployment Process
 1. 🔄 **Trigger**: New model version available
-2. 📦 **Container**: Build new Docker image
-3. 🚀 **Deploy**: Update API service
+2. 📦 **Container**: Build new Docker image and push to Docker Hub
+3. 🚀 **Deploy**: Update API service (🚧)
 4. 👥 **Users**: Serve new predictions
 5. 📈 **Monitor**: Track performance
 
@@ -220,343 +220,19 @@ curl -X 'POST' \
 
 Access the Grafana dashboard at: http://localhost:3000/d/_eX4mpl3/fastapi-dashboard
 
-## MLOps Workflow Achievements
+## 🚀 Future Improvementes
 
-1. **Data Management**
-   - Automated data ingestion and validation
-   - Version control with DVC
-   - Data quality checks
+The next steps we want to implement in the project:
 
-2. **Model Development**
-   - Modular training pipeline
-   - Hyperparameter management
-   - Model versioning
-
-3. **Deployment**
-   - Containerized application
-   - API endpoint implementation
-   - Environment consistency
-
-4. **Monitoring**
-   - Real-time performance tracking
-   - Resource utilization monitoring
-   - Alert system implementation
-
-5. **CI/CD**
-   - Automated testing
-   - Continuous deployment
-   - Pipeline automation
-
-## Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+- [ ] Enhance CI/CD Pipeline and automate deployment🔄
+- [ ] Improve machine learning model 🧠
+- [ ] Implement user feedback system 🌐
+- [ ] Use Airflow for pipeline orchestration 🛠
+- [ ] Implement Kubernetes deployment (scalability) 🛠
+- [ ] Implement alertmanager for drift detection 📊
+- [ ] Add testing suite 🔍
+- [ ] Enhance API security by adding OAuth2 authentication 🔐
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Detailed User Guide
-
-### System Architecture Overview
-
-Our movie recommendation system implements a comprehensive MLOps pipeline with four core components:
-
-1. **CI/CD Pipeline (GitHub Actions)**
-   - Automated testing and deployment
-   - Daily data updates at midnight
-   - Continuous integration checks
-   - Automated Docker image rebuilding
-
-2. **Data Version Control Pipeline (DVC)**
-   - Data versioning and experiment tracking
-   - Reproducible data processing steps
-   - Model artifact management
-   - Pipeline orchestration
-
-3. **Model Deployment (FastAPI)**
-   - RESTful API endpoints
-   - Real-time recommendations
-   - Containerized deployment
-   - Scalable architecture
-
-4. **Monitoring System (Prometheus/Grafana)**
-   - Real-time performance tracking
-   - Resource utilization monitoring
-   - Custom metrics collection
-   - Automated alerting
-
-### Detailed Workflow
-
-#### 1. Data Pipeline Operations
-
-```bash
-# Update data version manually
-dvc repro data_update
-
-# Run complete pipeline
-dvc repro
-
-# Check pipeline status
-dvc status
-```
-
-The data pipeline includes:
-- Daily automated updates at midnight
-- Data quality validation
-- Feature engineering
-- Version tracking
-
-#### 2. Model Training Workflow
-
-```bash
-# Train new model
-python src/pipeline_steps/stage06_model_train.py
-
-# Evaluate model
-python src/pipeline_steps/stage07_model_evaluate.py
-```
-
-Training process includes:
-- Automated feature selection
-- Hyperparameter optimization
-- Model validation
-- Performance metrics tracking
-
-#### 3. API Interaction Guide
-
-The FastAPI application provides several endpoints:
-
-```python
-# Health check
-GET /status
-
-# Get movie recommendations
-POST /users/recommendations
-{
-    "no_genres_listed": 0,
-    "action": 0,
-    "adventure": 0,
-    "animation": 5,
-    "children": 3,
-    "comedy": 2,
-    ...
-}
-
-# Get model metrics
-GET /metrics
-```
-
-#### 4. Monitoring Setup
-
-1. **Prometheus Configuration**
-```yaml
-# monitoring/prometheus/prometheus.yml
-scrape_configs:
-  - job_name: 'fastapi'
-    static_configs:
-      - targets: ['fastapi:8000']
-```
-
-2. **Grafana Dashboard Access**
-- URL: http://localhost:3000
-- Default credentials:
-  - Username: admin
-  - Password: admin
-
-### Project Structure Deep Dive
-
-```
-sep24_bmlops_int_reco_films/
-├── src/                           # Source code
-│   ├── api/                       # FastAPI application
-│   ├── data_module_def/           # Data processing
-│   ├── models_module_def/         # Model implementation
-│   └── pipeline_steps/            # DVC pipeline stages
-├── monitoring/                    # Monitoring setup
-│   ├── alertmanager/             # Alert configuration
-│   ├── grafana/                  # Dashboards
-│   └── prometheus/               # Metrics collection
-├── data/                         # Data storage
-│   ├── raw/                      # Original data
-│   ├── interim/                  # Preprocessed data
-│   └── processed/                # Final features
-└── models/                       # Model artifacts
-```
-
-### Quality Assurance
-
-1. **Automated Tests**
-```bash
-# Run all tests
-python -m pytest tests/
-
-# Run specific test suite
-python -m pytest tests/test_model.py
-```
-
-2. **Data Validation**
-- Schema validation
-- Data quality checks
-- Missing value detection
-- Anomaly detection
-
-3. **Model Performance Metrics**
-- Intra-list similarity
-- Recommendation accuracy
-- Response time
-- Resource utilization
-
-### Troubleshooting Guide
-
-1. **Common Issues**
-
-```bash
-# DVC issues
-dvc doctor
-
-# Docker issues
-docker-compose logs
-
-# API issues
-curl http://localhost:8000/status
-```
-
-2. **Monitoring Alerts**
-- Check Alertmanager UI: http://localhost:9093
-- Review alert rules in `monitoring/prometheus/alert_rules.yml`
-- Check Grafana alerts dashboard
-
-### Development Workflow
-
-1. **Local Development**
-```bash
-# Create feature branch
-git checkout -b feature/new-feature
-
-# Start development environment
-docker-compose up -d
-
-# Run tests
-pytest
-
-# Submit changes
-git push origin feature/new-feature
-```
-
-2. **Pipeline Updates**
-```bash
-# Modify pipeline stages
-vim dvc.yaml
-
-# Test changes
-dvc repro -f
-
-# Commit updates
-dvc commit
-```
-
-### Maintenance Tasks
-
-1. **Regular Updates**
-- Daily data updates (automated)
-- Weekly model retraining
-- Monthly performance review
-
-2. **Backup Procedures**
-```bash
-# Backup DVC cache
-dvc push
-
-# Backup Docker images
-docker save -o backup.tar image_name
-```
-
-## 🚀 Future Improvements
-
-### 1. 🔄 Pipeline Enhancements
-- **Automated Model Retraining**
-  - Implement drift detection
-  - Add automated retraining triggers
-  - Develop A/B testing framework
-
-- **Advanced Data Processing**
-  - Add feature store integration
-  - Implement real-time data processing
-  - Enhance data validation pipelines
-
-### 2. 🧠 Model Improvements
-- **Advanced Algorithms**
-  - Implement deep learning models
-  - Add hybrid recommendation approaches
-  - Develop content-based filtering
-
-- **Model Optimization**
-  - Add model compression techniques
-  - Implement model quantization
-  - Enhance inference speed
-
-### 3. 🛠 Infrastructure Updates
-- **Scalability**
-  - Implement Kubernetes deployment
-  - Add horizontal scaling capabilities
-  - Enhance load balancing
-
-- **Security**
-  - Add OAuth2 authentication
-  - Implement role-based access
-  - Enhance API security
-
-### 4. 📊 Monitoring Enhancements
-- **Advanced Analytics**
-  - Add custom monitoring dashboards
-  - Implement predictive alerts
-  - Enhanced metric collection
-
-- **User Analytics**
-  - Add user behavior tracking
-  - Implement A/B testing metrics
-  - Enhanced recommendation analytics
-
-### 5. 🔍 Quality Assurance
-- **Testing**
-  - Add integration test suite
-  - Implement performance testing
-  - Enhanced unit test coverage
-
-- **Documentation**
-  - Add API documentation
-  - Enhanced user guides
-  - Developer documentation
-
-### 6. 🌐 User Experience
-- **Interface**
-  - Add web interface for monitoring
-  - Implement user feedback system
-  - Enhanced recommendation explanations
-
-- **API Features**
-  - Add batch prediction endpoints
-  - Implement streaming recommendations
-  - Add recommendation diversity controls
-
-### 7. 📈 Performance Optimization
-- **Speed**
-  - Optimize model inference
-  - Enhance data processing pipeline
-  - Implement caching strategies
-
-- **Resource Usage**
-  - Optimize memory usage
-  - Enhance CPU utilization
-  - Implement resource monitoring
-
-### 8. 🔐 Data Management
-- **Privacy**
-  - Implement data anonymization
-  - Add privacy-preserving features
-  - Enhanced data security
-
-- **Storage**
-  - Implement data archival
-  - Add data lifecycle management
-  - Optimize storage usage
