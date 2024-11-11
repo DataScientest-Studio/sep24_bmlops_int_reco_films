@@ -227,11 +227,15 @@ The next steps we want to implement in the project:
 - [ ] Enhance CI/CD Pipeline and automate deployment🔄
 - [ ] Improve machine learning model 🧠
 - [ ] Implement user feedback system 🌐
-- [ ] Use Airflow for pipeline orchestration 🛠
-- [ ] Implement Kubernetes deployment (scalability) 🛠
-- [ ] Implement alertmanager for drift detection 📊
-- [ ] Add testing suite 🔍
-- [ ] Enhance API security by adding OAuth2 authentication 🔐
+- [ ] Use Airflow for pipeline orchestration 🚀
+- [ ] Implement Kubernetes deployment 🛠
+- [ ] Implement alertmanager 📊
+- [ ] Add testing 🔍
+- [ ] Enhance API security by adding authentication 🔐
+
+## More Information
+
+For more information, take a look at our [Wiki](https://github.com/DataScientest-Studio/sep24_bmlops_int_reco_films/wiki).
 
 ## License
 
