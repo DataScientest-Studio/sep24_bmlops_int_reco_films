@@ -20,6 +20,14 @@ jobs:
           echo "Current year is: $year"
           echo "::set-output name=current::$year"
 
+      - name: Check if year is less than 2018 (last available year)
+        id: check_year
+        run: |
+          if [ ${{ steps.load_version.outputs.current }} -ge 2018 ]; then
+            echo "Year is 2018 or greater. Skipping the workflow."
+            exit 0
+          fi
+
       - name: Increase data version
         id: increase_version
         run: |

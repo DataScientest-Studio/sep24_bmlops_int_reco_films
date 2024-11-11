@@ -95,6 +95,7 @@ class ModelEvaluation:
 
             # Log the metric into MLflow
             mlflow.log_metric("intra_list_similarity", intra_list_similarity)
+            mlflow.log_params(self.config.params)
 
             users = pd.read_csv(self.config.user_filename)
             user_sample = self.get_test_sample(users)
