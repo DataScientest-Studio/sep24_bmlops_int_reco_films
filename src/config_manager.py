@@ -123,6 +123,7 @@ class ConfigurationManager:
         repo_owner = "castolpe"
         repo_name = "sep24_bmlops_int_reco_films"
         repo_token = os.getenv("DAGSHUB_TOKEN")
+        params = self.params.NearestNeighbors
 
         create_directories([config.root_dir])
 
@@ -135,6 +136,7 @@ class ConfigurationManager:
             repo_name=repo_name,
             repo_token=repo_token,
             mlflow_uri=f"https://dagshub.com/{repo_owner}/{repo_name}.mlflow",
+            params=params,
         )
 
         return model_evaluation_config

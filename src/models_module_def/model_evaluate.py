@@ -23,8 +23,6 @@ class ModelEvaluation:
     def __init__(self, config: ModelEvaluationConfig):
         self.config = config
 
-        print(self.config.repo_token)
-
         dagshub.auth.add_app_token(self.config.repo_token)
 
         dagshub.init(
