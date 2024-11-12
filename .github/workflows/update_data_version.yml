@@ -25,7 +25,7 @@ jobs:
         run: |
           if [ ${{ steps.load_version.outputs.current }} -ge 2018 ]; then
             echo "Year is 2018 or greater. Skipping the workflow."
-            exit 0
+            exit 1
           fi
 
       - name: Increase data version
