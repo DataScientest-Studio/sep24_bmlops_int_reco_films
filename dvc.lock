@@ -150,14 +150,14 @@ stages:
     outs:
     - path: models/model.pkl
       hash: md5
-      md5: 3dd9ed5652af680827a59b6c615f763a
+      md5: 9c163309399cf83dfc01dacd4df854e0
       size: 5135615
   model_evaluation:
     cmd: python src/pipeline_steps/stage07_model_evaluate.py
     deps:
     - path: models/model.pkl
       hash: md5
-      md5: 3dd9ed5652af680827a59b6c615f763a
+      md5: 9c163309399cf83dfc01dacd4df854e0
       size: 5135615
     - path: src/config.yaml
       hash: md5
